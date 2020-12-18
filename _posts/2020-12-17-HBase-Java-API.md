@@ -36,11 +36,64 @@ tags: [hbase]     # TAG names should always be lowercase
         - RowFilter(CompareOperator op, ByteArrayComparable rowComparator)
         - ValueFilter(CompareOperator valueCompareOp, ByteArrayComparable valueComparator)
         This filter is used to filter based on column value
-        -
     - setRowPrefixFilter(byte[] rowPrefix)
         NOTE: Doing a withStartRow(byte[]) and/or withStopRow(byte[]) after this method will yield undefined results.
+3.代码样例
+    - 样例一
+        ```language
+        try (Table table = HconnectionFactory.connection.getTable(tablename)) {
+           Scan scan = new Scan();
+           FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
 
+           scan.setRowPrefixFilter(Bytes.toBytes(id));
+           Filter startTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.GREATER_OR_EQUAL, Bytes.toBytes(startTime+""));
+           filterList.addFilter(startTimeFilter);
+           Filter endTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.LESS_OR_EQUAL, Bytes.toBytes(endTime+""));
+           filterList.addFilter(endTimeFilter);
 
+           scan.setFilter(filterList);
+
+           ResultScanner scanner = table.getScanner(scan);
+           for (Result rs : scanner) {
+                //...
+           }
+           scanner.close();
+       } catch (Exception e) {
+           logger.error("query HBase error", e);
+       }
+    - 样例二
+        ```language
+        public void delCarTracksData() throws IOException {
+            TableName name = TableName.valueOf(props.getCarTrackTable());
+            try (Table table = HconnectionFactory.connection.getTable(name)) {
+                Scan scan = new Scan();
+
+                Long STOP_TS = (System.currentTimeMillis() / 1000) - 3600;
+                scan.setTimeRange(0, STOP_TS);
+                scan.setCaching(1000);
+
+                FilterList filters = new FilterList(FilterList.Operator.MUST_PASS_ALL,
+                        new FirstKeyOnlyFilter(), new KeyOnlyFilter());   //只获取RowKeys
+                scan.setFilter(filters);
+                ResultScanner scanner = table.getScanner(scan);
+                List<Delete> deletes = new ArrayList<>(1000);
+                Result [] rr;
+                do {
+                    rr = scanner.next(1000);
+                    if (rr.length > 0) {
+                        for (Result r: rr) {
+                            Delete delete = new Delete(r.getRow(), STOP_TS);
+                            deletes.add(delete);
+                        }
+                        table.delete(deletes);
+                        deletes.clear();
+                    }
+                } while(rr.length > 0);
+            } catch (Exception e) {
+                logger.error("删除车辆轨迹数据失败！");
+            }
+        }
+###Get
 
 
 
