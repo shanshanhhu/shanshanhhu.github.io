@@ -38,32 +38,65 @@ tags: [hbase]     # TAG names should always be lowercase
         This filter is used to filter based on column value
     - setRowPrefixFilter(byte[] rowPrefix)
         NOTE: Doing a withStartRow(byte[]) and/or withStopRow(byte[]) after this method will yield undefined results.
+
 3.代码样例
-    - 样例一
-        ```language
-        try (Table table = HconnectionFactory.connection.getTable(tablename)) {
-           Scan scan = new Scan();
-           FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+   - 样例一
+```java
+    public class demo1(){
+        public CarTracks getAccidentCarTracks(String id, Long endTime) throws IOException {
+            CarTracks carTracks = new CarTracks();
+            List<CarTrackView> carTrackViews = new ArrayList<>();
+            TableName name = TableName.valueOf(props.getBackTrackTable());
+            Long timePeriod = 150L;
+            Long startTime = endTime - timePeriod * 1000L;
+            try (Table table = HconnectionFactory.connection.getTable(name)) {
+                Scan scan = new Scan();
 
-           scan.setRowPrefixFilter(Bytes.toBytes(id));
-           Filter startTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.GREATER_OR_EQUAL, Bytes.toBytes(startTime+""));
-           filterList.addFilter(startTimeFilter);
-           Filter endTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.LESS_OR_EQUAL, Bytes.toBytes(endTime+""));
-           filterList.addFilter(endTimeFilter);
+                FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
 
-           scan.setFilter(filterList);
+                scan.setRowPrefixFilter(Bytes.toBytes(id));
 
-           ResultScanner scanner = table.getScanner(scan);
-           for (Result rs : scanner) {
-                //...
-           }
-           scanner.close();
-       } catch (Exception e) {
-           logger.error("query HBase error", e);
-       }
-    - 样例二
-        ```language
-        public void delCarTracksData() throws IOException {
+               //根据时间筛选车辆轨迹
+                Filter startTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.GREATER_OR_EQUAL, Bytes.toBytes(startTime+""));
+                filterList.addFilter(startTimeFilter);
+                Filter endTimeFilter = new SingleColumnValueFilter(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_"), CompareOperator.LESS_OR_EQUAL, Bytes.toBytes(endTime+""));
+                filterList.addFilter(endTimeFilter);
+
+                scan.setFilter(filterList);
+
+                ResultScanner scanner = table.getScanner(scan);
+                for (Result rs : scanner) {
+                    CarTrackView carTrackView = new CarTrackView();
+                    carTrackView.setId(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("ptcId"))));
+                    carTrackView.setLatitude(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("lat"))));
+                    carTrackView.setLongitude(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("long_"))));
+                    carTrackView.setAltitude(new Integer(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("elevation")))));
+                    carTrackView.setCreateTime(new Long(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("timeStamp_")))));
+                    carTrackView.setBearing(new Integer(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("heading")))));
+                    carTrackView.setSpeed(new Integer(new String(rs.getValue(Bytes.toBytes("cartrack"), Bytes.toBytes("speed")))));
+                    carTrackViews.add(carTrackView);
+                }
+                //按照时间由小到大进行排序
+                Collections.sort(carTrackViews, new Comparator<CarTrackView>() {
+                    @Override
+                    public int compare(CarTrackView o1, CarTrackView o2) {
+                        return o1.getCreateTime().compareTo(o2.getCreateTime());
+                    }
+                });
+
+                carTracks.setCarTrackViews(carTrackViews);
+                scanner.close();
+            } catch (Exception e) {
+                logger.error("query HBase error", e);
+            }
+            return carTracks;
+        }
+    }
+```
+   - 样例二
+```java
+    public class demo2() {
+        public void delCarTracksData() {
             TableName name = TableName.valueOf(props.getCarTrackTable());
             try (Table table = HconnectionFactory.connection.getTable(name)) {
                 Scan scan = new Scan();
@@ -93,6 +126,8 @@ tags: [hbase]     # TAG names should always be lowercase
                 logger.error("删除车辆轨迹数据失败！");
             }
         }
+    }
+```
 ###Get
 
 
