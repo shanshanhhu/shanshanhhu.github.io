@@ -11,22 +11,22 @@ tags: [hbase]     # TAG names should always be lowercase
 2. **常用方法**
     - **addColumn(byte[] family, byte[] qualifier)**
     - **addFamily(byte[] family)**
-        Limiting the scan to specific column families or columns by using addFamily or addColumn can reduce
-        IO and network. IO is reduced because each column family is represented by a Store on each RegionServer,
-        and only the Stores representing the specific column families in question need to be accessed.
+    Limiting the scan to specific column families or columns by using addFamily or addColumn can reduce
+    IO and network. IO is reduced because each column family is represented by a Store on each RegionServer,
+    and only the Stores representing the specific column families in question need to be accessed.
     - **withStartRow(byte[] startRow)**
-        Set the start row of the scan. If the specified row does not exist, the Scanner will start from
-        the next closest row after the specified row.
+    Set the start row of the scan. If the specified row does not exist, the Scanner will start from
+    the next closest row after the specified row.
     - **withStopRow(byte[] stopRow)**
     - **setTimeRange(long minStamp, long maxStamp)**
     - **setTimeStamp(long timestamp)**
     - **setCaching(int caching)**
-        Specify a scanner cache that will be filled before the Scan result is returned, setting setCaching to the number
-        of rows to cache before returning the result. If not set, the Configuration setting HConstants.HBASE_CLIENT_SCANNER_CACHING
-will apply. Higher caching values will enable faster scanners but will use more memory.
+    Specify a scanner cache that will be filled before the Scan result is returned, setting setCaching to the number
+    of rows to cache before returning the result. If not set, the Configuration setting HConstants.HBASE_CLIENT_SCANNER_CACHING
+    will apply. Higher caching values will enable faster scanners but will use more memory.
     - **setBatch(int batch)**
-        To limit the number of columns if your table has very wide rows (rows with a large number of columns),
-        use setBatch(int batch) and set it to the number of columns you want to return in one batch.
+    To limit the number of columns if your table has very wide rows (rows with a large number of columns),
+    use setBatch(int batch) and set it to the number of columns you want to return in one batch.
     - **setMaxResultSize(long maxResultSize)**
 
     - **setFilter(Filter filter)**
@@ -37,7 +37,7 @@ will apply. Higher caching values will enable faster scanners but will use more 
         - **ValueFilter(CompareOperator valueCompareOp, ByteArrayComparable valueComparator)**
         This filter is used to filter based on column value
     - **setRowPrefixFilter(byte[] rowPrefix)**
-        **NOTE:** Doing a withStartRow(byte[]) and/or withStopRow(byte[]) after this method will yield undefined results.
+    **NOTE:** Doing a withStartRow(byte[]) and/or withStopRow(byte[]) after this method will yield undefined results.
 
 3.**代码样例**
    - **样例一**
@@ -129,6 +129,9 @@ will apply. Higher caching values will enable faster scanners but will use more 
     }
 ```
 ###Get
+
+
+
 
 
 
