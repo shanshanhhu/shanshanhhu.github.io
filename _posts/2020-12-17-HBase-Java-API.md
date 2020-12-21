@@ -5,8 +5,8 @@ categories: [bigdata, hbase]
 tags: [hbase]     # TAG names should always be lowercase
 ---
 
-## Reading Data
-### Scan
+# Reading Data
+## Scan
 1. **方法类合集[Scan](http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/client/Scan.html)**
 2. **常用方法**
     - **addColumn(byte[] family, byte[] qualifier)**
@@ -128,7 +128,40 @@ tags: [hbase]     # TAG names should always be lowercase
         }
     }
 ```
-###Get
+##Get
+1.**方法合集**[Get](http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/client/Get.html)
+
+2.**代码样例**
+```java
+public class RetriveData{
+
+   public static void main(String[] args) throws IOException, Exception{
+
+      // Instantiating Configuration class
+      Configuration config = HBaseConfiguration.create();
+
+      // Instantiating HTable class
+      HTable table = new HTable(config, "emp");
+
+      // Instantiating Get class
+      Get g = new Get(Bytes.toBytes("row1"));
+
+      // Reading the data
+      Result result = table.get(g);
+
+      // Reading values from Result class object
+      byte [] value = result.getValue(Bytes.toBytes("personal"),Bytes.toBytes("name"));
+      byte [] value1 = result.getValue(Bytes.toBytes("personal"),Bytes.toBytes("city"));
+
+      // Printing the values
+      String name = Bytes.toString(value);
+      String city = Bytes.toString(value1);
+
+      System.out.println("name: " + name + " city: " + city);
+   }
+}
+```
+
 
 
 
