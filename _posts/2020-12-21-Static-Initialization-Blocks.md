@@ -1,5 +1,5 @@
 ---
-title: Static Initialization Blocks
+title: Java Initialization Blocks
 date: 2020-12-21 14:11:25 +0800
 categories: [java, grammar]
 tags: [grammar]     # TAG names should always be lowercase
