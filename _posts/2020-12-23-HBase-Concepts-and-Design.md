@@ -35,3 +35,13 @@ and (2) it ensures that the length (in bytes) of the key is consistent and hence
 - Through their row key or via a table scan for a range of row keys
 - In a batch manner using map-reduce
 
+# Basic Concepts Summary
+[This post](https://www.shuzhiduo.com/A/kPzOW0v8zx/) introduces HBase data model, memory mechanism.
+
+
+# snapshot
+[snapshot](http://hbasefly.com/2017/09/17/hbase-snapshot/)
+
+
+# Reference
+[Introduction to HBase, the NoSQL Database for Hadoop](https://www.informit.com/articles/article.aspx?p=2253412)
