@@ -1,11 +1,24 @@
 ---
-title: HBase Java API
+title: HBase Usage
 date: 2020-12-17 14:41:22 +0800
 categories: [bigdata, hbase]
 tags: [hbase]     # TAG names should always be lowercase
 ---
 
-# Reading Data
+# HBase Shell Commands
+[HBase Shell Commands Summary](https://sparkbyexamples.com/hbase/hbase-shell-commands-cheat-sheet/)
+
+## Filter
+```
+scan 'tablename',{COLUMNS =>['columnFamily:qualifier1','columnFamily:qualifier2'], LIMIT => 10}
+scan 'tablename', {COLUMNS => 'columnFamily:qualifier', FILTER => "ValueFilter( =, 'searchValue' )"}
+
+scan 'tablename', {STARTROW => 'abc', ENDROW => 'abd'}
+scan 'tablename', {ROWPREFIXFILTER => 'rowkeyPrefixValue',FILTER => "SingleColumnValueFilter('columnFamily','qualifier',<=, 'binary:searchValue')",LIMIT => 20}
+scan 'tablename', {ROWPREFIXFILTER => 'rowkeyPrefixValue',FILTER => "SingleColumnValueFilter('columnFamily','qualifier',>=, 'binary:searchValue') AND SingleColumnValueFilter('columnFamily','qualifier',<=, 'binary:searchValue')"}
+```
+
+# Reading Data --- JAVA API
 ## Scan
 1. **方法类合集[Scan](http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/client/Scan.html)**
 2. **常用方法**
@@ -162,6 +175,7 @@ public class RetriveData{
 }
 ```
 
+#
 
 
 
