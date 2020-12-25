@@ -1,0 +1,61 @@
+---
+title: Linux Commands
+date: 2020-12-23 15:56:22 +0800
+categories: [c++, c++]
+tags: [c++]
+---
+
+# String Operations
+- reverse a string
+[Different methods to reverse a string in C/C++](https://www.geeksforgeeks.org/reverse-a-string-in-c-cpp-different-methods/)
+
+# STL
+- [sort(), custom function](https://www.geeksforgeeks.org/sort-c-stl/)
+```
+// C++ program to demonstrate descending order sort using
+// greater<>().
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int arr[] = { 1, 5, 8, 9, 6, 7, 3, 4, 2, 0 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    sort(arr, arr + n, greater<int>());
+
+    cout << "Array after sorting : \n";
+    for (int i = 0; i < n; ++i)
+        cout << arr[i] << " ";
+
+    return 0;
+}
+```
+# memset
+`int array[4][4]; memset(array,1,sizeof(int)*16);` doesn't work!
+because memset set every byte of your array to 1 not every int element.
+```
+int main()
+{
+    int a[5];
+
+    // all elements of A are zero
+    memset(a, 0, sizeof(a));
+    for (int i = 0; i < 5; i++)
+        cout << a[i] << " ";
+    cout << endl;
+
+    // all elements of A are -1
+    memset(a, -1, sizeof(a));
+    for (int i = 0; i < 5; i++)
+        cout << a[i] << " ";
+    cout << endl;
+
+    // Would not work
+    memset(a, 5, sizeof(a)); // WRONG
+    for (int i = 0; i < 5; i++)
+        cout << a[i] << " ";
+}
+```
+We can use memset() to set all values as 0 or -1 for integral data types also.
+It will not work if we use it to set as other values. The reason is simple, memset works byte by byte.
