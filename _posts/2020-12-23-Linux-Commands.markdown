@@ -47,4 +47,31 @@ tags: [linux]
 下面的命令更高效：
 `for pid in $(ps -ef | awk '/some search/ {print $2}'); do kill -9 $pid; done`
 
+# 修改hosts
+> nano /etc/hosts
 
+# 查看端口使用状态
+> lsof -i -P -n
+-t : Show only TCP sockets on Linux
+-u : Display only UDP sockets on Linux
+-l : Show listening sockets. For example, TCP port 22 is opened by SSHD server.
+-p : List process name that opened sockets
+-n : Don’t resolve service names i.e. don’t use DNS
+
+# netcat
+通过建立TCP/UDP连接传送数据---[Netcat (nc) Command with Examples](https://linuxize.com/post/netcat-nc-command-with-examples/)
+> nc \[options] host port
+1. The `-z` option will tell nc to only scan for open ports, without sending any data to them
+2. The `-v` option to provide more verbose information.
+3. Use the `-u` option to establish a UDP connection
+## Port Scanning
+> nc -z -v 10.10.8.8 20-80  // 20-80 is port range
+## Sending Files through Netcat
+> nc receiving.host.com 5555 < file_name
+## Creating a Simple Chat Server
+> nc -l 5555
+
+# telnet
+## how to exit telnet connection?
+> Escape character is '^]'.
+ctrl + ] --> (then enter telnet console) --> quit

@@ -11,14 +11,20 @@ tags: [roadmap]     # TAG names should always be lowercase
 - Java
    - Java虚拟机
    - 并发
-   - 书籍：《深入理解Java虚拟机》、《Java高并发实战》
+   - 《深入理解Java虚拟机》、《Java高并发实战》
 - J2EE开发
 - Scala
    - 《快学 Scala》
 
 # 操作系统
 - Linux
+   - [Introduction to Linux](https://tldp.org/LDP/intro-linux/html/)
+   - [Linux Programming Made Easy – A Complete Guide With Resources For Beginners](https://www.whoishostingthis.com/resources/linux-programming/)
    - [Linux服务器管理和安全](https://www.coursera.org/learn/linux-server-management-security)
+   - Community: [linux.org](https://www.linux.org/)
+- Shell
+   - [Linux Shell Scripting Tutorial](http://www.freeos.com/guides/lsst/)
+   - [Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
 
 # 数据库
 - Hive
@@ -84,5 +90,6 @@ tags: [roadmap]     # TAG names should always be lowercase
 1. [Coursera](https://www.coursera.org/)
 2. [Cognitiveclass.ai](https://cognitiveclass.ai/courses)
 3. [Codecademy](https://www.codecademy.com/)
+4. [我爱电子书网](https://www.52doc.com/)
 
 ![Big Data](../assets/img/sample/big_data.jpg)
