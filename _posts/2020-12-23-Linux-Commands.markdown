@@ -75,3 +75,29 @@ tags: [linux]
 ## how to exit telnet connection?
 > Escape character is '^]'.
 ctrl + ] --> (then enter telnet console) --> quit
+
+# check os version in linux
+Type any one of the following command to find os name and version in Linux:
+> cat /etc/os-release
+> lsb_release -a
+> hostnamectl
+
+Type the following command to find Linux kernel version:
+> uname -r
+
+# Yum Command
+[Yum Command Cheat Sheet for Red Hat Enterprise Linux](https://access.redhat.com/articles/yum-cheat-sheet)
+1. **Problem** :Repodata is over 2 weeks old. Install yum-cron? Or run: yum makecache fast
+**[Fix:](https://www.linuxnix.com/resolving-yum-repodata-is-over-2-weeks-old-install-yum-cron-or-run-yum-makecache-fast/)**
+> yum clean all
+
+# cp command
+> cp Src_file Dest_file
+> cp -r Src_directory Dest_directory   // copy recursively
+> cp Src_file1 Src_file2 Src_file3 Dest_directory   // the destination directory with the same name, created if not existed but if already existed then it will be overwritten
+**Options:**
+1. `-b`(backup): With this option cp command creates the backup of the destination file in the same folder with the different name and in different format.
+2. `-f`(force): If the system is unable to open destination file for writing
+operation because the user doesn’t have writing permission for this file
+then by using -f option with cp command, destination file is deleted first and then copying of content is done from source to destination file.
+3. `-r/-R`: With this option cp command shows its recursive behavior by copying the entire directory structure recursively.
