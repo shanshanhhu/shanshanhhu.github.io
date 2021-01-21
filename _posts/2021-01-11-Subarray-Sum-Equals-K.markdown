@@ -1,8 +1,8 @@
 ---
 title: Subarray Sum Equals K
 date: 2021-01-11 09:37:22 +0800
-categories: [leetcode, dynamic_programing]
-tags: [dynamic_programing]     # TAG names should always be lowercase
+categories: [leetcode, dynamicprograming]
+tags: [dynamicprograming]     # TAG names should always be lowercase
 ---
 
 # 560. Subarray Sum Equals K
@@ -217,6 +217,46 @@ public:
     }
 };
 ```
+# 221. Maximal Square
+[Problem:](https://leetcode.com/problems/maximal-square/)
+Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.\
+**Example:**\
+![matrix photo](../assets/img/sample/leetcode221.jpg)\
+Input: matrix = \[\["1","0","1","0","0"],\["1","0","1","1","1"],\["1","1","1","1","1"],\["1","0","0","1","0"]]\
+Output: 4
+```
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int res = 0;
+
+        for (int l = 0; l < cols; l++) {
+            int sums[rows];
+            memset(sums, 0, sizeof(sums));
+            for (int j = l; j < cols; j++) {
+                for (int i = 0; i < rows; i++) {
+                    sums[i] += matrix[i][j] - '0';
+                }
+
+                vector<int> cursum;
+                cursum.push_back(0);
+                for (int k = 0; k < rows; k++) {
+                    cursum.push_back(cursum[k] + sums[k]);
+                    if (k < j - l) continue;
+                    int idx = min(k, j - l);
+                    int area = pow(idx + 1, 2);
+                    int tmp = cursum[k+1] - cursum[k - idx];
+                    if (tmp == area)
+                        res = max(res, area);
+                }
+            }
+        }
+        return res;
+    }
+};
+```
 
 # 85. Maximal Rectangle
 [Problem:](https://leetcode.com/problems/maximal-rectangle/)
@@ -280,3 +320,4 @@ public:
     }
 };
 ```
+

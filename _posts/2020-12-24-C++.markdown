@@ -1,8 +1,8 @@
 ---
 title: C++
 date: 2020-12-23 15:56:22 +0800
-categories: [c++, c++]
-tags: [c++]
+categories: [cplusplus, cpp]
+tags: [cpp]
 ---
 
 # String Operations

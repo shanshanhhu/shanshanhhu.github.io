@@ -101,3 +101,13 @@ Type the following command to find Linux kernel version:
 operation because the user doesn’t have writing permission for this file
 then by using -f option with cp command, destination file is deleted first and then copying of content is done from source to destination file.
 3. `-r/-R`: With this option cp command shows its recursive behavior by copying the entire directory structure recursively.
+
+# APT-GET Package Management Command
+[25 Useful Basic Commands of APT-GET and APT-CACHE for Package Management](https://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/)
+
+# Add Software repository in Debian
+add repository links to `/etc/apt/sources.list`. Debian [SourceList](https://wiki.debian.org/SourcesList#Commonly_used_package_sources)
+> deb  http://deb.debian.org/debian  stretch main
+> deb-src  http://deb.debian.org/debian  stretch main
+> //Save and close the file. Then update the system packages list using the command below.
+> apt update
