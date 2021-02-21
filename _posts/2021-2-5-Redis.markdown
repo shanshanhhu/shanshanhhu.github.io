@@ -1,0 +1,10 @@
+---
+title: Redis
+date: 2021-02-5 13:10:22 +0800
+categories: [bigdata, redis]
+tags: [redis]
+---
+
+# Redis Template
+[Usage](https://juejin.cn/post/6844903763354845191#heading-28)
+

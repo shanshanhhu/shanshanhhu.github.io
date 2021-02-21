@@ -8,6 +8,11 @@ tags: [hbase]     # TAG names should always be lowercase
 # HBase Shell Commands
 [HBase Shell Commands Summary](https://sparkbyexamples.com/hbase/hbase-shell-commands-cheat-sheet/)
 
+## alter TTL
+> disable 'tablename'
+> alter 'tablename', {NAME=>'cf', TTL => '100'}  // 100s, cf : column family
+> enable 'tablename'
+
 ## Filter
 ```
 scan 'tablename',{COLUMNS =>['columnFamily:qualifier1','columnFamily:qualifier2'], LIMIT => 10}

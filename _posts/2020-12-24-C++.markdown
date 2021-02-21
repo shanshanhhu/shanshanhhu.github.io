@@ -59,3 +59,24 @@ int main()
 ```
 We can use memset() to set all values as 0 or -1 for integral data types also.
 It will not work if we use it to set as other values. The reason is simple, memset works byte by byte.
+
+# convert string to int
+[detail](https://en.cppreference.com/w/cpp/string/basic_string/stol)
+> std::stoi( str )
+> long stol(string), float stof(string), double stod(string)
+
+# How to split a string
+```cplusplus
+std::string s = "scott>=tiger>=mushroom";
+std::string delimiter = ">=";
+
+size_t pos = 0;  // std::size_t is the unsigned integer type of the result of the sizeof operator. The bit width of std::size_t is not less than 16.
+// Defined in header <cstddef> , Defined in header <cstdio>, Defined in header <cstdlib> , Defined in header <cstring>
+std::string token;
+while ((pos = s.find(delimiter)) != std::string::npos) {
+    token = s.substr(0, pos);
+    std::cout << token << std::endl;
+    s.erase(0, pos + delimiter.length());
+}
+std::cout << s << std::endl;
+```
