@@ -111,3 +111,9 @@ add repository links to `/etc/apt/sources.list`. Debian [SourceList](https://wik
 > deb-src  http://deb.debian.org/debian  stretch main
 > //Save and close the file. Then update the system packages list using the command below.
 > apt update
+
+# disk usage
+df -hl 查看磁盘剩余空间
+df -h 查看每个根路径的分区大小
+du -sh \[目录名] 返回该目录的大小
+du -sm \[文件夹] 返回该文件夹总M数

@@ -133,8 +133,25 @@ Java 基本类型的包装类的大部分都实现了常量池技术，即 Byte,
 两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。
 
 # Java 类
-1. 为什么Java只有值传递？
-**按值调用(call by value)**表示方法接收的是调用者提供的值，而按**引用调用（call by reference)**表示方法接收的是调用者提供的变量地址。一个函数可以修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值。
+## Loading, Linking, and Initializing
+[Offical Document](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html)
+The Java Virtual Machine dynamically loads, links and initializes classes and interfaces. Loading is the process of finding the binary representation of a class or interface type with a particular name and creating a class or interface from that binary representation. Linking is the process of taking a class or interface and combining it into the run-time state of the Java Virtual Machine so that it can be executed. Initialization of a class or interface consists of executing the class or interface initialization method
+
+### Java Class Loaders
+Class loaders are responsible for loading Java classes during runtime dynamically to the JVM (Java Virtual Machine). Also, they are part of the JRE (Java Runtime Environment). Hence, the JVM doesn't need to know about the underlying files or file systems in order to run Java programs thanks to class loaders.
+Also, these Java classes aren't loaded into memory all at once, but when required by an application.
+[Three Types of Java Classloaders:](https://www.geeksforgeeks.org/classloader-in-java/)
+- BootStrap ClassLoader
+- Extension ClassLoader
+- Application ClassLoader(System ClassLoader)
+
+Delegation Model:
+![](../assets/img/sample/java-classloader.png)
+[Custom Classloader](https://www.baeldung.com/java-classloaders)
+
+## Basic Question
+1. 值的传递方式
+按值调用(call by value)表示方法接收的是调用者提供的值，  而按引用调用（call by reference表示方法接收的是调用者提供的变量地址。一个函数可以修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值。
 Java总是采用按值调用。也就是说，方法得到的是所有参数值的一个拷贝，也就是说，方法不能修改传递给它的任何参数变量的内容。
 一个方法不能修改一个基本数据类型的参数，而对象引用作为参数就不一样
 ```
