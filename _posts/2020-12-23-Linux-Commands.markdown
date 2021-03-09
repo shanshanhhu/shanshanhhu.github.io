@@ -117,3 +117,12 @@ df -hl 查看磁盘剩余空间
 df -h 查看每个根路径的分区大小
 du -sh \[目录名] 返回该目录的大小
 du -sm \[文件夹] 返回该文件夹总M数
+
+# change login account
+`su` : The su (short for substitute or switch user) utility allows you to run commands with another user’s privileges, by default the root user.
+Using su is the simplest way to switch to the administrative account in the current login session.
+> su username
+
+### ./ and ../
+`./config` means you're calling something in the current working directory.
+`../config` would be used if the config executable were in the parent of the current working directory.

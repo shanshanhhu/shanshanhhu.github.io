@@ -6,6 +6,7 @@ tags: [hbase]
 ---
 
 # What is HBase?
+[Official Documents](http://hbase.apache.org/book.html#number.of.cfs)
 Apache HBase is a **NoSQL database** that runs on top of Hadoop as a distributed and scalable big data store.
 
 # HBase data model

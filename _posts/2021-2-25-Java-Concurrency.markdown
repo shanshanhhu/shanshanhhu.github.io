@@ -58,6 +58,10 @@ native methods :methods written in a language other than the Java programming la
 ![](../assets/img/sample/Java-Thraed-Life-Cycle-States.jpg)
 ![](../assets/img/sample/RUNNABLE-VS-RUNNING.png)
 
+## Volatile Keyword
+[volatile:](http://tutorials.jenkov.com/java-concurrency/volatile.html)The Java volatile keyword is used to mark a Java variable as "being stored in main memory". More precisely that means, that every read of a volatile variable will be read from the computer's main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache.
+- The Java volatile keyword guarantees **visibility** of changes to variables across threads.
+- To address the instruction reordering challenge, the Java volatile keyword gives a **"happens-before"** guarantee
 ## Optimistic and Pessimistic Locking
   1. Pessimistic Locking --- `synchronized` keywords. It asks you to first guarantee that no other thread will interfere in between certain operation (i.e. lock the object), and then only allow you access to any instance/method. It put a significant penalty on your application in terms of performance. Reason is simple that waiting threads can not do anything unless they also get a chance and perform the guarded operation.
   2. Optimistic Locking --- `CAS` algorithm. There exist one more approach which is more efficient in performance, and it optimistic in nature. In this approach, you proceed with an update, being hopeful that you can complete it without interference. This approach relies on collision detection to determine if there has been interference from other parties during the update, in which case the operation fails and can be retried (or not).
