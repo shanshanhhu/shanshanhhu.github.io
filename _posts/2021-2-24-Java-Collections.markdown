@@ -311,7 +311,7 @@ HashMap is an implementation of Map Interface, which map a key to value. Duplica
 ![differences](../assets/img/sample/hashset-hashmap.png)
 
 - HashMap vs TreeMap [Details](https://www.baeldung.com/java-treemap-vs-hashmap)
-![map hierarchy](../assets/img/sample/map.webp)
+![map hierarchy](../assets/img/sample/map.png)
 1. Implementation: both TreeMap and HashMap extend `AbstractMap`, except that TreeMap also implements NavigableMap interface, SortedMap interface. A TreeMap stores map elements in a Red-Black tree, which is a Self-Balancing Binary Search Tree. A HashMap works on the principle of `hashing`.
 2. Order : items in a TreeMap are sorted according to their natural order. HashMap doesn't provide any guarantee over the way the elements are arranged in the Map.
 3. Null Values : HashMap allows storing at most one null key and many null values. TreeMap doesn't allow a null key but may contain many null values.

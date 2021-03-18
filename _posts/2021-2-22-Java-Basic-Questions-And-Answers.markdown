@@ -37,7 +37,7 @@ tags: [questions]
 标识符（Identifier）是用户编程时使用的名字，用于给变量、常量、函数、语句块等命名，以建立起名称与使用之间的关系。
 关键字（Keywords）是由Java语言规定的具有特定意义的字符串，通常也称为保留字。我们定义的标识符不能与关键字相同，否则会出现错误。
 3. **public, protected, private**
-![](../assets/img/sample/identifier.webp)
+![](../assets/img/sample/identifier.png)
 
 4. **Java 泛型了解么？什么是类型擦除？介绍一下常用的通配符？**
 **[Java泛型](https://www.baeldung.com/java-generics)**是在JDK 5.0中引入的，目的是减少bug并在类型上增加额外的抽象层。

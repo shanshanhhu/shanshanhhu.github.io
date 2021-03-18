@@ -1,14 +1,218 @@
-
+---
+title: Redis
+date: 2021-03-18 17:31:22 +0800
+categories: [bigdata, redis]
+tags: [redis]
+---
 # Redis Data Structures
 [An introduction to Redis data types and abstractions](https://redis.io/topics/data-types-intro)
 - Binary-safe strings.
 - Lists: collections of string elements sorted according to the order of insertion. They are basically linked lists.
 - Sets: collections of unique, unsorted string elements.
-- Sorted sets, similar to Sets but where every string element is associated to a floating number value, called score. The elements are always taken sorted by their score, so unlike Sets it is possible to retrieve a range of elements (for example you may ask: give me the top 10, or the bottom 10).
-- Hashes, which are maps composed of fields associated with values. Both the field and the value are strings. This is very similar to Ruby or Python hashes.
+- Sorted sets: similar to Sets but where every string element is associated to a floating number value, called score. The elements are always taken sorted by their score, so unlike Sets it is possible to retrieve a range of elements (for example you may ask: give me the top 10, or the bottom 10).
+- Hashes: which are maps composed of fields associated with values. Both the field and the value are strings. This is very similar to Ruby or Python hashes.
+### Redis keys
+Redis keys are binary safe.The empty string is also a valid key.
 
-# redis-cli commands
+A few other rules about keys:
+- Very long keys are not a good idea. For instance a key of 1024 bytes is a bad idea not only memory-wise, but also because the lookup of the key in the dataset may require several costly key-comparisons. Even when the task at hand is to match the existence of a large value, hashing it (for example with SHA1) is a better idea, especially from the perspective of memory and bandwidth.
+- Very short keys are often not a good idea. "user\:1000:followers" is more readable than "u1000flw", and the added space is minor compared to the space used by the key object itself and the value object. While short keys will obviously consume a bit less memory, your job is to find the right balance.
+- Try to stick with a schema. For instance "object-type:id" is a good idea, as in "user:1000". Dots or dashes are often used for multi-word fields, as in "comment\:1234:reply.to" or "comment\:1234:reply-to".
+- The maximum allowed key size is 512 MB.
+
+### Altering and querying the key space
+- EXISTS
+- DEL
+- TYPE
+```
+> set mykey hello
+OK
+> exists mykey
+(integer) 1
+> del mykey
+(integer) 1
+> exists mykey
+(integer) 0
+> type mykey
+string
+```
+### Redis expires: keys with limited time to live
+A few quick info about Redis expires:
+- They can be set both using seconds or milliseconds precision.
+- However the expire time resolution is always 1 millisecond.
+- Information about expires are replicated and persisted on disk, the time virtually passes when your Redis server remains stopped (this means that Redis saves the date at which a key will expire).
+
+- EXPIRE
+- PERSIST: remove the expire and make the key persistent forever
+- TTL: to check the remaining time to live for the key
+- PEXPIRE, PTTL: set and check expires in milliseconds
+```
+> set key some-value
+OK
+> expire key 5
+(integer) 1
+> get key (immediately)
+"some-value"
+> get key (after some time)
+(nil)
+```
+### Redis Strings
+- SET, GET
+```
+> set mykey somevalue  // SET will replace any existing value already stored into the key, in the case that the key already exists
+OK
+> get mykey
+"somevalue"
+```
+- INCR, INCRBY, DECR, DECRBY (atomic increment / decrement)
+```
+> set counter 100
+OK
+> incr counter
+(integer) 101
+> incr counter
+(integer) 102
+> incrby counter 50
+(integer) 152
+```
+What does it mean that INCR is atomic? That even multiple clients issuing INCR against the same key will never enter into a race condition.The read-increment-set operation is performed while all the other clients are not executing a command at the same time.
+- GETSET
+The command sets a key to a new value, returning the old value as the result.
+- MSET, MGET
+```
+> mset a 10 b 20 c 30
+OK
+> mget a b c  // When MGET is used, Redis returns an array of values.
+1) "10"
+2) "20"
+3) "30"
+```
+### Redis Lists
+A List is just a sequence of ordered elements.Redis lists are implemented via Linked Lists. This means that even if you have millions of elements inside a list, the operation of adding a new element in the head or in the tail of the list is performed in constant time.
+- LPUSH, RPUSH, LRANGE
+```
+> rpush mylist A  // add elements into a list on the right (at the tail)
+(integer) 1
+> rpush mylist B
+(integer) 2
+> lpush mylist first  // at the head
+(integer) 3
+> lrange mylist 0 -1  // -1 is the last element
+1) "first"
+2) "A"
+3) "B"
+
+> rpush mylist 1 2 3 4 5 "foo bar"  // variadic commands: add multiple elements at once
+(integer) 9
+> lrange mylist 0 -1
+1) "first"
+2) "A"
+3) "B"
+4) "1"
+5) "2"
+6) "3"
+7) "4"
+8) "5"
+9) "foo bar"
+```
+- LPOP, RPOP
+```
+> rpush mylist a b c
+(integer) 3
+> rpop mylist
+"c"
+> rpop mylist
+"b"
+> rpop mylist
+"a"
+```
+#### Common use cases for lists
+Lists are useful for a number of tasks, two very representative use cases are the following:
+- Remember the latest updates posted by users into a social network.
+- Communication between processes, using a consumer-producer pattern where the producer pushes items into a list, and a consumer (usually a worker) consumes those items and executed actions. Redis has special list commands to make this use case both more reliable and efficient.
+#### Capped lists
+we just want to use lists to store the latest items.
+- LTRIM, LRANGE
+The LTRIM command is similar to LRANGE, but instead of displaying the specified range of elements it sets this range as the new list value.
+```
+> rpush mylist 1 2 3 4 5
+(integer) 5
+> ltrim mylist 0 2
+OK
+> lrange mylist 0 -1  // O(N)
+1) "1"
+2) "2"
+3) "3"
+```
+#### Blocking operations on lists
+in general as a building block for inter process communication systems: blocking operations.
+If the list is empty and there is nothing to process, so RPOP just returns NULL. In this case a consumer is forced to wait some time and retry again with RPOP. This is called polling, and is not a good idea in this context because it has several drawbacks:
+1. Forces Redis and clients to process useless commands (all the requests when the list is empty will get no actual work done, they'll just return NULL).
+2. Adds a delay to the processing of items, since after a worker receives a NULL, it waits some time. To make the delay smaller, we could wait less between calls to RPOP, with the effect of amplifying problem number 1, i.e. more useless calls to Redis.
+- BRPOP, BLPOP
+So Redis implements commands called BRPOP and BLPOP which are versions of RPOP and LPOP able to block if the list is empty: they'll return to the caller only when a new element is added to the list, or when a user-specified timeout is reached.
+```
+> brpop tasks 5  // wait for elements in the list tasks, but return if after 5 seconds no element is available. Use 0 as timeout to wait for elements forever.
+1) "tasks"
+2) "do_something"
+```
+A few things to note about BRPOP:
+
+Clients are served in an ordered way: the first client that blocked waiting for a list, is served first when an element is pushed by some other client, and so forth.
+The return value is different compared to RPOP: it is a two-element array since it also includes the name of the key, because BRPOP and BLPOP are able to block waiting for elements from multiple lists.
+If the timeout is reached, NULL is returned.
+#### Automatic creation and removal of keys
+we never had to create empty lists before pushing elements, or removing empty lists when they no longer have elements inside. It is Redis' responsibility to delete keys when lists are left empty, or to create an empty list if the key does not exist and we are trying to add elements to it. it applies to all the Redis data types composed of multiple elements
+Basically we can summarize the behavior with three rules:
+1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is created before adding the element.
+2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed. The Stream data type is the only exception to this rule.
+3. Calling a read-only command such as LLEN (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
+
+### Redis Hashes
+- HSET, HMSET, HGET, HMGET, HGETALL
+```
+> hmset user:1000 username antirez birthyear 1977 verified 1
+OK
+> hget user:1000 username
+"antirez"
+> hget user:1000 birthyear
+"1977"
+> hgetall user:1000
+1) "username"
+2) "antirez"
+3) "birthyear"
+4) "1977"
+5) "verified"
+6) "1"
+> hmget user:1000 username birthyear no-such-field
+1) "antirez"
+2) "1977"
+3) (nil)
+```
+- HINCRBY
+### Redis Sets
+- SADD, SPOP, SMEMBERS, SISMEMBER
+```
+> sadd myset 1 2 3
+(integer) 3
+> smembers myset   // get all members
+1. 3
+2. 1
+3. 2
+
+> sismember myset 3  // checking if an element exists
+(integer) 1
+> sismember myset 30
+(integer) 0
+```
+- SINTER, SUNIONSTORE
+SUNIONSTORE normally performs the union between multiple sets, and stores the result into another set.
+
+- SCARD
+the cardinality of a set.
+# all redis-cli commands
 ![redis cli](https://www.w3resource.com/redis/index.php)
+[](https://redis.io/commands#hash)
 
 # Redis Template
 [Usage](https://juejin.cn/post/6844903763354845191#heading-28)

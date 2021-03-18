@@ -1,0 +1,8 @@
+---
+title: Kafka
+date: 2021-03-08 13:10:22 +0800
+categories: [bigdata, kafka]
+tags: [kafka]
+---
+
+[Kafka Consumer Rebalance](https://sergiuoltean.com/2020/08/19/kafka-consumer-rebalance/)

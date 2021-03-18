@@ -1,0 +1,73 @@
+---
+title: Hadoop
+date: 2021-03-16 17:31:22 +0800
+categories: [bigdata, hadoop]
+tags: [hadoop]
+---
+# Hadoop Architecture
+![](../assets/img/sample/hdfsarchitecture.png)
+![](../assets/img/sample/hadoop-architecture.png)
+[hadoop-architecture](https://www.geeksforgeeks.org/hadoop-architecture/)
+the bandwidth available becomes lesser as we go away from:
+- Processes on the same node
+- Different nodes on the same rack
+- Nodes on different racks of the same data center
+- Nodes in different data centers
+## Components
+### MapReduce
+#### MapReduce Architecture
+[What is MapReduce in Hadoop? Architecture | Example](https://www.guru99.com/introduction-to-mapreduce.html)
+It performs the distributed processing in parallel in a Hadoop cluster.
+MapReduce has mainly 2 tasks which are divided phase-wise:
+- Map Task
+- Reduce Task
+![](../assets/img/sample/mapreduce.png)
+- For most jobs, it is better to make a split size equal to the size of an HDFS block (which is 64 MB, by default).
+- Execution of map tasks results into writing output to a local disk on the respective node and not to HDFS.
+- Reason for choosing local disk over HDFS is, to avoid replication which takes place in case of HDFS store operation.
+#### Jobtracker & Multiple Task Trackers
+![](../assets/img/sample/mapreduce-jobtracker.png)
+- **Jobtracker(Master)**
+1. coordinate the activity by scheduling tasks to run on different data nodes.
+2. keeps track of the overall progress of each job. In the event of task failure, the job tracker can reschedule it on a different task tracker.
+- **Task tracker(Slave)**
+1. look after the execution of individual task
+2. send the progress report to the job tracker
+3. periodically sends 'heartbeat' signal to the Jobtracker so as to notify him of the current state of the system.
+###  HDFS(Hadoop distributed File System)
+HDFS creates multiple replicas of data blocks and distributes them on compute nodes in a cluster.
+![](../assets/img/sample/Namenode-and-Datanode.png)
+- **NameNode(Master)**
+NameNode is mainly used for storing the Metadata.
+1. Meta Data can be the transaction logs that keep track of the user’s activity in a Hadoop cluster.
+2. Meta Data can also be the name of the file, size, and the information about the location(Block number, Block ids) of Datanode that Namenode stores to find the closest DataNode for Faster Communication.
+3. Namenode instructs the DataNodes with the operation like delete, create, Replicate, etc.
+- **DataNode(Slave)**
+DataNodes are mainly utilized for storing the data in a Hadoop cluster.
+- **File Block**
+Data in HDFS is always stored in terms of blocks. So the single block of data is divided into multiple blocks of size 128MB which is default and you can also change it manually.
+- **Replication --- Fault tolerance**
+the number of times you make a copy of that particular thing can be expressed as it’s `Replication Factor`.By default, the Replication Factor for Hadoop is set to 3 which can be configured in hdfs-site.xml file.
+- **Rack Awareness**
+The rack is nothing but just the physical collection of nodes in our Hadoop cluster (maybe 30 to 40). A large Hadoop cluster is consists of so many Racks . With the help of this Racks information Namenode chooses the closest Datanode to achieve the maximum performance while performing the read/write information which reduces the Network Traffic.
+
+###  YARN(Yet Another Resource Framework)
+YARN is a Framework on which MapReduce works. YARN performs 2 operations that are Job scheduling and Resource Management.
+- **Job scheduling**
+1. The Purpose of Job schedular is to divide a big task into small jobs so that each job can be assigned to various slaves in a Hadoop cluster and Processing can be Maximized.
+2. Job Scheduler also keeps track of which job is important, which job has more priority, dependencies between the jobs and all the other information like job timing, etc.
+- **Resource Management**
+The use of Resource Manager is to manage all the resources that are made available for running a Hadoop cluster.
+### Common Utilities or Hadoop Common
+Hadoop common or Common utilities are nothing but our java library and java files or we can say the java scripts that we need for all the other components present in a Hadoop cluster. these utilities are used by HDFS, YARN, and MapReduce for running the cluster. Hadoop Common verify that Hardware failure in a Hadoop cluster is common so it needs to be solved automatically in software by Hadoop Framework.
+### Replica Placement Policy
+[Replica Placement Policy in Hadoop Framework](https://www.netjstech.com/2018/02/replica-placement-policy-in-hadoop-hdfs.html)
+### The Persistence of File System Metadata
+1. NameNode
+- EditLog: The NameNode uses a transaction log called the EditLog to persistently record every change that occurs to file system metadata.
+- FsImage: The entire file system namespace, including the mapping of blocks to files and file system properties, is stored in a file called the FsImage.
+2. DataNode
+Blockreport: When a DataNode starts up, it scans through its local file system, generates a list of all HDFS data blocks that correspond to each of these local files, and sends this report to the NameNode. The report is called the Blockreport.
+
+### Data Disk Failure, Heartbeats and Re-Replication
+A network partition can cause a subset of DataNodes to lose connectivity with the NameNode. The NameNode detects this condition by the absence of a Heartbeat message. The NameNode marks DataNodes without recent Heartbeats as dead and does not forward any new IO requests to them.

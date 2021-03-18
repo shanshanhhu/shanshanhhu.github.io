@@ -127,6 +127,36 @@ System.out.println(n);// 1.255
 ![精度](../assets/img/sample/bigdecimal.png)
 
 ## Map
+### Map Initialization
+```
+// method 1
+public static Map<String, String> articleMapOne;
+static {
+    articleMapOne = new HashMap<>();
+    articleMapOne.put("ar01", "Intro to Map");
+    articleMapOne.put("ar02", "Some article");
+}
+
+// method 2
+public static Map<String, String> createSingletonMap() {
+    return Collections.singletonMap("username1", "password1");
+}
+
+// empty map
+Map<String, String> emptyMap = Collections.emptyMap();
+
+// method 3
+Map<String, String> map = Stream.of(new String[][] {
+  { "Hello", "World" },
+  { "John", "Doe" },
+}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+
+// method 4
+Map<String, Integer> map = Stream.of(
+  new AbstractMap.SimpleEntry<>("idea", 1),
+  new AbstractMap.SimpleEntry<>("mobile", 2))
+  .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+```
 ### TreeMap --- Comparator
 ![hierarchy](../assets/img/sample/treemap-hierarchy.jpg)
 Key Points: [Source](https://www.callicoder.com/java-treemap/)
@@ -169,5 +199,19 @@ public class CreateTreeMapCustomComparatorExample {
 
     }
 }
+```
+
+### Immutable Map
+```
+// for short map
+ImmutableMap.of(key, value, key2, value2); // ...up to five k-v pairs
+// for longer map
+ImmutableMap<String,String> myMap = ImmutableMap.<String, String>builder()
+    .put("key1", "value1")
+    .put("key2", "value2")
+    .put("key3", "value3")
+    .build();
+assertTrue(immutableMap.containsKey("key1"));
+assertTrue(immutableMap.containsKey("key2"));
 ```
 

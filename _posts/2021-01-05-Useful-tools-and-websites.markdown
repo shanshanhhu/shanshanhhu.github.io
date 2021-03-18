@@ -30,4 +30,5 @@ JUMP：
 - Tutorials for Software Developers
 [Recommand: **tutorials.jenkov.com**](http://tutorials.jenkov.com/)
 
--
+- 大数据技术原理与应用（第三版）林子雨
+[大数据技术原理与应用](http://dblab.xmu.edu.cn/post/bigdata3ppt/)
