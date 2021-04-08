@@ -149,7 +149,8 @@ The Concurrent Mark Sweep (CMS) collector (also referred to as the concurrent lo
 to set the number of threads use:
 -XX:ParallelCMSThreads=<n>
 - The G1 Garbage Collector
-The Garbage First or G1 garbage collector is available in Java 7 and is designed to be the long term replacement for the CMS collector. The G1 collector is a parallel, concurrent, and incrementally compacting low-pause garbage collector
+The Garbage First or G1 garbage collector is available in Java 7 and is designed to be the long term replacement for the CMS collector. The G1 collector is a parallel, concurrent, and incrementally compacting low-pause garbage collector.
 -XX:+UseG1GC
 > Command: java -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -XX:+UseSerialGC -jar c:\javademos\demo\jfc\Java2D\Java2demo.jar
 ![](../assets/img/sample/GC-Parameter.png)
+

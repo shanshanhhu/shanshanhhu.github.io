@@ -73,6 +73,8 @@ System.out.println(array[0]);//1
 ```
 Integer[] myArray = {1, 2, 3};   // 使用包装类可解决问题
 ```
+### Collections.swap
+public static void swap(List list, int i, int j)
 
 ### Collection.toArray()
 泛型方法：<T> T[] toArray(T[] a); 如果toArray方法中没有传递任何参数的话返回的是Object类型数组。

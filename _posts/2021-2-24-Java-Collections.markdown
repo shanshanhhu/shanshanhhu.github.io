@@ -189,9 +189,10 @@ Map: 使用键值对（kye-value）存储，Key 是无序的、不可重复的�
 ## 集合框架底层数据结构总结
 Collection 接口下面的集合:
 - List
-Arraylist： Object\[]数组
-Vector：Object\[]数组
-LinkedList： 双向链表(JDK1.6 之前为循环链表，JDK1.7 取消了循环)
+Arraylist： Object\[]数组， ArrayList内部是拿数组存储，那么大小上限就是Integer.MAX_VALUE： ((2^31)-1)2147483647
+> private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+Vector：Object\[]数组，
+LinkedList： 双向链表，理论上大小是无限的。
 
 - Set
 HashSet（无序，唯一）: 基于 HashMap 实现的，底层采用 HashMap 来保存元素
@@ -240,6 +241,7 @@ Vector返回的迭代器不是快速失败的。另一方面，ArrayList返回�
 3. Array没有提供ArrayList那么多功能，比如addAll、removeAll和iterator等。
 
 ### ArrayList 扩容机制
+[](https://www.cnblogs.com/kuoAT/p/6771653.html)
 [源码解析](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/ArrayList%E6%BA%90%E7%A0%81+%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90?id=_2-arraylist-%e6%a0%b8%e5%bf%83%e6%ba%90%e7%a0%81%e8%a7%a3%e8%af%bb)
 分析过程：add() ---> ensureCapacityInternal(int minCapacity) ---> ensureExplicitCapacity(int minCapacity)  ---> grow(int minCapacity)
 minCapacity：向ArrayList插入元素所需的最小容量。
@@ -259,6 +261,7 @@ hashcode() ---> equals()
 
 ## Map
 - [HashMap源码解析](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/HashMap(JDK1.8)%E6%BA%90%E7%A0%81+%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90.md)
+- [Hashmap实现原理及扩容机制详解](https://blog.csdn.net/lkforce/article/details/89521318)
 HashMap Key Words:
 1. Initial Capacity – It is the capacity of HashMap at the time of its creation (It is the number of buckets a HashMap can hold when the HashMap is instantiated). In java, it is 2^4=16 initially, meaning it can hold 16 key-value pairs.
 2. Load Factor – It is the percent value of the capacity after which the capacity of Hashmap is to be increased (It is the percentage fill of buckets after which Rehashing takes place). In java, it is 0.75f by default, meaning the rehashing takes place after filling 75% of the capacity.
@@ -361,6 +364,7 @@ map.forEach((key, value) -> {
 
 - ConcurrentHashMap
 [源码分析](https://crossoverjie.top/2018/07/23/java-senior/ConcurrentHashMap/)
+[ConcurrentHashMap1.8 - 扩容详解](https://blog.csdn.net/ZOKEKAI/article/details/90051567)
 是线程安全的。
 - ConcurrentHashMap 和 Hashtable 的区别
 底层数据结构： JDK1.7 的 ConcurrentHashMap 底层采用 分段的数组+链表 实现，JDK1.8 采用的数据结构跟 HashMap1.8 的结构一样，数组+链表/红黑二叉树。Hashtable 和 JDK1.8 之前的 HashMap 的底层数据结构类似都是采用 数组+链表 的形式，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的；

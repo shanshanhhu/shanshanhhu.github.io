@@ -8,7 +8,7 @@ tags: [flink]
 # Flink Architecture
 [Official Documents](https://ci.apache.org/projects/flink/flink-docs-stable/concepts/flink-architecture.html)
 ## Flink Cluster
-![](../assets/img/sample/flink-cluster.png)
+![](../assets/img/sample/flink-cluster.jpg)
 The Flink runtime consists of two types of processes: a JobManager and one or more TaskManagers.
 The Client is not part of the runtime and program execution, but is used to prepare and send a dataflow to the JobManager. After that, the client can disconnect (detached mode), or stay connected to receive progress reports (attached mode).
 
@@ -59,12 +59,13 @@ The barriers then flow downstream. When an intermediate operator has received a 
 Once snapshot n has been completed, the job will never again ask the source for records from before Sn, since at that point these records (and their descendant records) will have passed through the entire data flow topology.
 ![](../assets/img/sample/stream_aligning.png)
 #### Snapshotting Operator State
-![](../assets/img/sample/checkpointing.png)
+![](../assets/img/sample/checkpointing.avg)
 The resulting snapshot contains:
 For each parallel stream data source, the offset/position in the stream when the snapshot was started
 For each operator, a pointer to the state that was stored as part of the snapshot
 #### Unaligned Checkpointing
 ![](../assets/img/sample/stream_unaligning.png)
+ABS（Asynchronous Barrier Snapshotting）
 The figure depicts how an operator handles unaligned checkpoint barriers:
 
 The operator reacts on the first barrier that is stored in its input buffers.
@@ -131,6 +132,7 @@ Assuming all of the data has arrived, event time operations will behave as expec
 Event time has several benefits over processing time. First of all, it decouples the program semantics from the actual serving speed of the source and the processing performance of system. Hence you can process historic data, which is served at maximum speed, and continuously produced data with the same program. It also prevents semantically incorrect results in case of backpressure or delays due to failure recovery. Second, event time windows compute correct results, even if events arrive out-of-order of their timestamp which is common if a data stream gathers events from distributed sources.
 
 ## Event Time and Watermarks
+Out of order messages can be caused by delay, backpressure.
 The mechanism in Flink to measure progress in event time is `watermarks`.
 Watermarks flow as part of the data stream and carry a timestamp t. A Watermark(t) declares that event time has reached time t in that stream, meaning that there should be no more elements from the stream with a timestamp t’ <= t (i.e. events with timestamps older or equal to the watermark).
 ![](../assets/img/sample/stream_watermark_in_order.png)
@@ -141,7 +143,7 @@ Watermarks are crucial for out-of-order streams, as illustrated below, where the
 Watermarks are generated at, or directly after, source functions. Each parallel subtask of a source function usually generates its watermarks independently. These watermarks define the event time at that particular parallel source.
 As the watermarks flow through the streaming program, they advance the event time at the operators where they arrive. Whenever an operator advances its event time, it generates a new watermark downstream for its successor operators.
 Some operators consume multiple input streams; a union, for example, or operators following a keyBy(…) or partition(…) function. Such an operator’s current event time is the minimum of its input streams’ event times. As its input streams update their event times, so does the operator.
-![](../assets/img/sample/parallel_streams_watermarks.png)
+![](../assets/img/sample/parallel_streams_watermarks.avg)
 
 ## Windowing
 [Introducing Stream Windows in Apache Flink](https://flink.apache.org/news/2015/12/04/Introducing-windows.html)
@@ -182,5 +184,6 @@ Periodically checkpoint the Oprator State and KeyedState to the StateBackend.
 1. 开启checkpoint
 2. source支持数据重发
 3. sink支持事务，可以分2次提交，如kafka；或者sink支持幂等，可以覆盖之前写入的数据，如redis
+幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。
 
 - flink on yarn执行流程

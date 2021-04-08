@@ -5,4 +5,32 @@ categories: [bigdata, kafka]
 tags: [kafka]
 ---
 
+[Designing Apache Kafka Infrastructure](https://medium.com/@morgan_42683/designing-apache-kafka-infrastructure-a-starting-point-27368f65150)
+## Offsets
+In order to prevent the unnecessary repetition of data, Consumers maintain what is recently consumed using a special Kafka topic called ‘consumer_offsets‘.
+## The Controller
+It maintains information such as leaders and ISR lists.The Controller monitors the brokers in the cluster by monitoring their interaction with ZooKeeper.
+If a broker failure is indicated (<e.g by a registration in the ZooKeeper disappear), The Controller elects a new leader and broadcast those metadata changes to all the brokers in the cluster. The Controller also stores this data in ZooKeeper so that if the Controller itself fails, the new Controller elected will have the data needed to continue working.
+## In Sync Replica (ISR)
 [Kafka Consumer Rebalance](https://sergiuoltean.com/2020/08/19/kafka-consumer-rebalance/)
+## The Acks
+![](../assets/img/sample/Acks-parameter-settings.png)
+
+# Auto Commit
+Auto commit by default commits every five seconds.
+![](../assets/img/sample/kafka_offset.jpg)
+![](../assets/img/sample/kafka_events_lost.jpg)
+# Rebalance
+- When a new consumer joins a consumer group the set of consumers attempt to "rebalance" the load to assign partitions to each consumer. If the set of consumers changes while this assignment is taking place the rebalance will fail and retry. This setting controls the maximum number of attempts before giving up.
+the command for this is: rebalance.max.retries and is set to 4 by default.
+also, it might be happening if the following is true:
+- ZooKeeper session timeout. If the consumer fails to heartbeat to ZooKeeper for this period of time it is considered dead and a rebalance will occur.
+
+# Various failure scenarios in Kafka
+[Avoiding message losses, duplication and lost / multiple processing in Kafka](https://www.linkedin.com/pulse/avoiding-message-losses-duplication-lost-multiple-kafka-mahesh-abnave?articleId=6635490433164242945)
+## Producer Responsibilities
+- Ensuring the message does indeed gets logged to Kafka
+- Ensuring the message is not getting logged multiple times to Kafka
+## Consumer Responsibilities
+- Ensuring the message does gets consumed and processed (yeah, those two things are quite different and needs extra care during implementation)
+- Ensuring the message gets consumed and processed exactly once and not multiple times

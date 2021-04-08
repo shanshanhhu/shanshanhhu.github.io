@@ -4,6 +4,52 @@ date: 2021-2-8 12:08:22 +0800
 categories: [algorithm, sort]
 tags: [sort]
 ---
+# Time Complexity
+![](../assets/img/sample/sort-algorithms.png)
+
+# Quick Sort
+[quick-sort](https://www.geeksforgeeks.org/quick-sort/)
+[时间复杂度分析](https://zhuanlan.zhihu.com/p/341201904)
+```
+/* low  --> Starting index,  high  --> Ending index */
+quickSort(arr[], low, high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[pi] is now
+           at right place */
+        pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);  // Before pi
+        quickSort(arr, pi + 1, high); // After pi
+    }
+}
+/* This function takes last element as pivot, places
+   the pivot element at its correct position in sorted
+    array, and places all smaller (smaller than pivot)
+   to left of pivot and all greater elements to right
+   of pivot */
+partition (arr[], low, high)
+{
+    // pivot (Element to be placed at right position)
+    pivot = arr[high];
+
+    i = (low - 1)  // Index of smaller element and indicates the
+                   // right position of pivot found so far
+
+    for (j = low; j <= high- 1; j++)
+    {
+        // If current element is smaller than the pivot
+        if (arr[j] < pivot)
+        {
+            i++;    // increment index of smaller element
+            swap arr[i] and arr[j]
+        }
+    }
+    swap arr[i + 1] and arr[high])
+    return (i + 1)
+}
+```
 
 # Merge Sort
 [Source](https://www.geeksforgeeks.org/merge-sort/)
