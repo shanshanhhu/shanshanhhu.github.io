@@ -367,7 +367,6 @@ public class BuildHeap {
 
 ```
 
-
 # Tree
 [CS241 Lecture Notes](https://www.cpp.edu/~ftang/courses/CS241/notes/b-tree.htm)
 ## AVL Tree

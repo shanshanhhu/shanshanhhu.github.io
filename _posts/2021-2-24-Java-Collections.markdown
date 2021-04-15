@@ -8,7 +8,9 @@ tags: [questions]
 # Collections
 [容器详解](https://geek-docs.com/java/java-collection/java-collection-index.html)
 - Java有哪些容器?
+
 ![](../assets/img/sample/Collection2.png)
+
 ![层次图](../assets/img/sample/collection.png)
 
 - Collection 和 Collections 有什么区别？
@@ -201,9 +203,13 @@ TreeSet（有序，唯一）： 红黑树(自平衡的排序二叉树)
 
 Map 接口下面的集合:
 - Map
+
 ![hashmap structure](../assets/img/sample/hashmap.jpg)
+
 HashMap： JDK1.8 之前 HashMap 由数组+链表组成的，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法”解决冲突）。JDK1.8 以后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间
+
 ![LinkedHashMap structure](../assets/img/sample/LinkedHashMap.jpg)
+
 [Details](https://www.imooc.com/article/22931)
 LinkedHashMap： LinkedHashMap 继承自 HashMap，所以它的底层仍然是基于拉链式散列结构即由数组和链表或红黑树组成。另外，LinkedHashMap 在上面结构的基础上，增加了一条双向链表，使得上面的结构可以保持键值对的插入顺序。同时通过对链表进行相应的操作，实现了访问顺序相关逻辑。
 Hashtable： 同步的。数组+链表组成的，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的
@@ -277,14 +283,18 @@ static final int hash(Object key) {
       return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);  //  因为二进制的32位带符号的int值的范围在(-2^31 ~ 2^31-1), 而HashMap的初始容量才为16，因此 key.hashCode()的值不可直接作为key，需要取模（indexFor）
 }
 ```
+
 ![hash](../assets/img/sample/hash.png)
+
 ```
 bucketIndex = indexFor(hash, table.length);
 static int indexFor(int h, int length) {
      return h & (length-1);  //取模运算， 若length == 2^4， 则该操作可以截取hashcode的低四位作为key。因此length必须为2的幂次.
 }
 ```
+
 ![hashcode](../assets/img/sample/hashcode.png)
+
 
 - HashMap 和 Hashtable 的区别
 线程是否安全： HashMap 是非线程安全的，HashTable 是线程安全的,因为 HashTable 内部的方法基本都经过synchronized 修饰。（如果要保证线程安全的话就使用 ConcurrentHashMap）；
@@ -311,10 +321,13 @@ static int indexFor(int h, int length) {
 - HashMap 和 HashSet 区别
 HashSet is implementation of Set Interface which does not allow duplicate value. The main thing is, objects that are stored in HashSet must override equals() for check for equality and hashCode() methods for no duplicate value are stored in our set.
 HashMap is an implementation of Map Interface, which map a key to value. Duplicate keys are not allowed in a map.
+
 ![differences](../assets/img/sample/hashset-hashmap.png)
 
 - HashMap vs TreeMap [Details](https://www.baeldung.com/java-treemap-vs-hashmap)
+
 ![map hierarchy](../assets/img/sample/map.png)
+
 1. Implementation: both TreeMap and HashMap extend `AbstractMap`, except that TreeMap also implements NavigableMap interface, SortedMap interface. A TreeMap stores map elements in a Red-Black tree, which is a Self-Balancing Binary Search Tree. A HashMap works on the principle of `hashing`.
 2. Order : items in a TreeMap are sorted according to their natural order. HashMap doesn't provide any guarantee over the way the elements are arranged in the Map.
 3. Null Values : HashMap allows storing at most one null key and many null values. TreeMap doesn't allow a null key but may contain many null values.

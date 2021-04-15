@@ -9,7 +9,9 @@ tags: [questions]
 1. **Java的语言特性**
 - **面向对象（封装，继承，多态**
 - **[平台无关性](https://segmentfault.com/a/1190000021898950)**（由Java虚拟机实现: Java通过规定Java语言中基本数据类型的取值范围和行为，统一将Java文件编译成Class文件（字节码文件），并且最后由Java虚拟机将Class文件转换成对应平台的二进制文件，才实现了平台无关性。）
+
 ![Java编译过程](../assets/img/sample/java-compile.png)
+
 编译型语言（C，C++）是指编译器针对特定的操作系统将源代码一次性翻译成可被该平台执行的机器码；解释型语言（Java, C#）是指解释器对源程序逐行解释成特定平台的机器码并立即执行。
 > 在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 .class 的文件），
 > 它不面向任何特定的处理器，只面向虚拟机。Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。
@@ -32,11 +34,14 @@ tags: [questions]
 
 # Java语法
 1. **基本类型占存储空间的大小**
+
 ![基本类型](../assets/img/sample/basic-variable-size.jpg)
+
 2. **标识符和关键字**
 标识符（Identifier）是用户编程时使用的名字，用于给变量、常量、函数、语句块等命名，以建立起名称与使用之间的关系。
 关键字（Keywords）是由Java语言规定的具有特定意义的字符串，通常也称为保留字。我们定义的标识符不能与关键字相同，否则会出现错误。
 3. **public, protected, private**
+
 ![](../assets/img/sample/identifier.png)
 
 4. **Java 泛型了解么？什么是类型擦除？介绍一下常用的通配符？**
@@ -86,8 +91,11 @@ Note : Java 里使用 long 类型的数据一定要在数值后面加上 L，否
 **装箱**：自动将基本数据类型转换为包装器类型
 **拆箱**：自动将包装器类型转换为基本数据类型。
 > Integer i = new Integer(10);  // 一般情况， 每次都会创建新的Integer对象
+>
 > Integer i = 10;   // 装箱  在装箱的时候自动调用的是Integer的valueOf(int)方法。
+>
 > int n = i;    // 拆箱   而在拆箱的时候自动调用的是Integer的intValue方法。
+
 ```
 public static Integer valueOf(int i) {
         if(i >= -128 && i <= IntegerCache.high)
@@ -112,9 +120,11 @@ public class Main {
     }
 }
 ```
+
 在通过valueOf方法创建Integer对象的时候，如果数值在\[-128,127]之间，便返回指向IntegerCache.cache中已经存在的对象的引用；否则创建一个新的Integer对象。
 Integer、Short、Byte、Character、Long这几个类的valueOf方法的实现是类似的。
 Double、Float的valueOf方法的实现是类似的。
+
 ```
 public static Boolean valueOf(boolean b) {
         return (b ? TRUE : FALSE);
@@ -130,6 +140,7 @@ public class Main {
     }
 }
 ```
+
 3. 8 种基本类型的包装类和常量池
 Java 基本类型的包装类的大部分都实现了常量池技术，即 Byte,Short,Integer,Long,Character,Boolean；
 前面 4 种包装类默认创建了数值\[-128，127] 的相应类型的缓存数据，Character 创建了数值在\[0,127]范围的缓存数据，Boolean 直接返回 True Or False。如果超出对应范围仍然会去创建新的对象。
@@ -149,7 +160,9 @@ Also, these Java classes aren't loaded into memory all at once, but when require
 - Application ClassLoader(System ClassLoader)
 
 Delegation Model:
+
 ![](../assets/img/sample/java-classloader.png)
+
 [Custom Classloader](https://www.baeldung.com/java-classloaders)
 
 ## Basic Question
@@ -157,6 +170,7 @@ Delegation Model:
 按值调用(call by value)表示方法接收的是调用者提供的值，  而按引用调用（call by reference表示方法接收的是调用者提供的变量地址。一个函数可以修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值。
 Java总是采用按值调用。也就是说，方法得到的是所有参数值的一个拷贝，也就是说，方法不能修改传递给它的任何参数变量的内容。
 一个方法不能修改一个基本数据类型的参数，而对象引用作为参数就不一样
+
 ```
 public static void main(String[] args) {
 		int[] arr = { 1, 2, 3, 4, 5 };
@@ -266,6 +280,7 @@ class Dog{
 Characteristics of an Object Oriented Programming language
 
 ![Characteristics of an Object Oriented Programming language](../assets/img/sample/OOPs-Concepts.jpg)
+
 2. **面向对象特征** [Ref](https://www.careerride.com/oops-characteristics.aspx)
 - **封装（Encapsulation）**
 Binding data and operations of data together in a single unit – A class adhere this feature.
@@ -480,7 +495,9 @@ class Demo
 
 # 异常
 1. 异常类层次结构图
+
 ![异常类层次结构图](../assets/img/sample/Exception.png)
+
 - Exception :程序本身可以处理的异常，可以通过 catch 来进行捕获。Exception 又可以分为 受检查异常(必须处理, 不处理没法通过编译) 和 不受检查异常(可以不处理，不处理也可通过编译)。
 - Error ：Error 属于程序无法处理的错误 ，我们没办法通过 catch 来进行捕获 。例如，
 Java 虚拟机运行错误（Virtual MachineError）、虚拟机内存不够错误(OutOfMemoryError)、类定义错误（NoClassDefFoundError）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。

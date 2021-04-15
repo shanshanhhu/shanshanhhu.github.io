@@ -90,6 +90,7 @@ OK
 ### Redis Lists
 A List is just a sequence of ordered elements.Redis lists are implemented via Linked Lists. This means that even if you have millions of elements inside a list, the operation of adding a new element in the head or in the tail of the list is performed in constant time.
 - LPUSH, RPUSH, LRANGE
+
 ```
 > rpush mylist A  // add elements into a list on the right (at the tail)
 (integer) 1
@@ -103,10 +104,15 @@ A List is just a sequence of ordered elements.Redis lists are implemented via Li
 3) "B"
 
 > rpush mylist 1 2 3 4 5 "foo bar"  // variadic commands: add multiple elements at once
+
 (integer) 9
+
 > lrange mylist 0 -1
+
 1) "first"
+
 2) "A"
+
 3) "B"
 4) "1"
 5) "2"
@@ -115,6 +121,7 @@ A List is just a sequence of ordered elements.Redis lists are implemented via Li
 8) "5"
 9) "foo bar"
 ```
+
 - LPOP, RPOP
 ```
 > rpush mylist a b c
@@ -126,6 +133,7 @@ A List is just a sequence of ordered elements.Redis lists are implemented via Li
 > rpop mylist
 "a"
 ```
+
 #### Common use cases for lists
 Lists are useful for a number of tasks, two very representative use cases are the following:
 - Remember the latest updates posted by users into a social network.
@@ -134,6 +142,7 @@ Lists are useful for a number of tasks, two very representative use cases are th
 we just want to use lists to store the latest items.
 - LTRIM, LRANGE
 The LTRIM command is similar to LRANGE, but instead of displaying the specified range of elements it sets this range as the new list value.
+
 ```
 > rpush mylist 1 2 3 4 5
 (integer) 5
@@ -144,6 +153,7 @@ OK
 2) "2"
 3) "3"
 ```
+
 #### Blocking operations on lists
 in general as a building block for inter process communication systems: blocking operations.
 If the list is empty and there is nothing to process, so RPOP just returns NULL. In this case a consumer is forced to wait some time and retry again with RPOP. This is called polling, and is not a good idea in this context because it has several drawbacks:
@@ -151,8 +161,9 @@ If the list is empty and there is nothing to process, so RPOP just returns NULL.
 2. Adds a delay to the processing of items, since after a worker receives a NULL, it waits some time. To make the delay smaller, we could wait less between calls to RPOP, with the effect of amplifying problem number 1, i.e. more useless calls to Redis.
 - BRPOP, BLPOP
 So Redis implements commands called BRPOP and BLPOP which are versions of RPOP and LPOP able to block if the list is empty: they'll return to the caller only when a new element is added to the list, or when a user-specified timeout is reached.
+
 ```
-> brpop tasks 5  // wait for elements in the list tasks, but return if after 5 seconds no element is available. Use 0 as timeout to wait for elements forever.
+brpop tasks 5  // wait for elements in the list tasks, but return if after 5 seconds no element is available. Use 0 as timeout to wait for elements forever.
 1) "tasks"
 2) "do_something"
 ```
@@ -192,6 +203,7 @@ OK
 - HINCRBY
 ### Redis Sets
 - SADD, SPOP, SMEMBERS, SISMEMBER
+
 ```
 > sadd myset 1 2 3
 (integer) 3
@@ -205,6 +217,7 @@ OK
 > sismember myset 30
 (integer) 0
 ```
+
 - SINTER, SUNIONSTORE
 SUNIONSTORE normally performs the union between multiple sets, and stores the result into another set.
 

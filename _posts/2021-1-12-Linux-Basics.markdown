@@ -7,7 +7,7 @@ tags: [linux]
 
 # The Linux Filesystem
 ![The Linux Filesystem Structure](../assets/img/sample/The-Linux-filesystem.png)
-1. `/etc` Generally contains the Linux configuration files—files that control when and how programs start up
+1. `/etc` Generally contains the Linux configuration files—files that control when and how programs start up
 2. /mnt Where other filesystems are attached or mounted to the filesystem
 
 # Linux Commands

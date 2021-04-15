@@ -111,6 +111,8 @@ max.poll.records： 一次poll返回的最大记录数默认是500。
 > kafka-consumer-groups --bootstrap-server master:9092 --list --new-consumer
 - 计算消息的消息堆积情况
 > kafka-consumer-groups --bootstrap-server master:9092 --describe --group test_kafka_game_x_g1
+
+
 ## Kafka消费者分配策略？ Kafka 一个consumer group 3个consumer消费5个partition, 如何分配？
 1. RangeAssignor
 2. RoundRobinAssignor
@@ -171,6 +173,18 @@ kafka采用zookeeper对集群中的broker、consumer进行管理，可以注册t
 - 原因：
 联合索引(A,B,C)是一棵B+Tree，其非叶子节点存储的是第一个关键字的索引，而叶节点存储的则是三个关键字A、B、C三个关键字的数据，且按照A、B、C的顺序进行排序。当执行以下查询的时候，是无法使用这个联合索引的。
 select * from STUDENT where B='b';因为联合索引中是先根据A进行排序的。如果A没有先确定，直接对B和C进行查询的话，就相当于乱序查询一样，因此索引无法生效，查询是全表查询。
+## Mysql B-Tree Index & Hash Index
+[Comparison of B-Tree and Hash Indexes](https://dev.mysql.com/doc/refman/8.0/en/index-btree-hash.html#hash-index-characteristics)
+- A B-tree index can be used for column comparisons in expressions that use the =, >, >=, <, <=, or BETWEEN operators. The index also can be used for LIKE comparisons if the argument to LIKE is a constant string that does not start with a wildcard character.
+The following SELECT statements do not use indexes:
+> SELECT * FROM tbl_name WHERE key_col LIKE '%Patrick%';  // the LIKE value begins with a wildcard character.
+> SELECT * FROM tbl_name WHERE key_col LIKE other_col;   // the LIKE value is not a constant.
+They are used only for equality comparisons that use the = or <=> operators (but are very fast). They are not used for comparison operators such as < that find a range of values.
+### Hash Index:
+- The optimizer cannot use a hash index to speed up ORDER BY operations. (This type of index cannot be used to search for the next entry in order.)
+- MySQL cannot determine approximately how many rows there are between two values (this is used by the range optimizer to decide which index to use). This may affect some queries if you change a MyISAM or InnoDB table to a hash-indexed MEMORY table.
+
+Only whole keys can be used to search for a row. (With a B-tree index, any leftmost prefix of the key can be used to find rows.)
 
 ##  ElasticSearch索引存储，如何能节省内存。
 [Elasticsearch索引机制](https://zhuanlan.zhihu.com/p/137574234)

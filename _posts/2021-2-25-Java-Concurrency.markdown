@@ -5,7 +5,8 @@ categories: [java, concurrency]
 tags: [concurrency]
 ---
 
-# 进程 & 线程 [Source](https://blog.csdn.net/ThinkWon/article/details/102021274)
+# 进程 & 线程
+[Source](https://blog.csdn.net/ThinkWon/article/details/102021274)
 - **进程**
 一个在内存中运行的应用程序。每个进程都有自己独立的一块内存空间，一个进程可以有多个线程，
 - **线程**
@@ -17,7 +18,9 @@ tags: [concurrency]
 3. 内存分配：同一进程的线程共享本进程的地址空间和资源，而进程之间的地址空间和资源是相互独立的
 4. 包含关系：如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程。
 5. 影响关系：一个进程崩溃后，在保护模式下不会对其他进程产生影响，但是一个线程崩溃整个进程都死掉。所以多进程要比多线程健壮。
+
 ![process](../assets/img/sample/process.png)
+
 -  程序计数器为什么是私有的?
 The program counter (PC) holds the address of the next instruction to be executed.
 程序计数器主要有下面两个作用：
@@ -28,7 +31,9 @@ The program counter (PC) holds the address of the next instruction to be execute
 - 虚拟机栈和本地方法栈为什么是私有的?
 虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。
 为了保证线程中的局部变量不被别的线程访问到，虚拟机栈和本地方法栈是线程私有的。
+
 ![java stacks](../assets/img/sample/java-stacks.gif)
+
 **Frame** :[The Structure of the Java Virtual Machine](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html)
 A frame is used to store data and partial results, as well as to perform dynamic linking, return values for methods, and dispatch exceptions.
 A new frame is created each time a method is invoked. A frame is destroyed when its method invocation completes, whether that completion is normal or abrupt (it throws an uncaught exception). Frames are allocated from the Java Virtual Machine stack (§2.5.2) of the thread creating the frame. Each frame has its own array of local variables , its own operand stack , and a reference to the run-time constant pool of the class of the current method.
@@ -41,7 +46,9 @@ native methods :methods written in a language other than the Java programming la
   - 并发:一个处理器同时处理多个任务, 并发事件之间不一定要同一时刻发生。
   - 并行:多个处理器或者是多核的处理器同时处理多个不同的任务。是指同时发生的两个并发事件。
 > 前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生．
+
 ![](../assets/img/sample/concurrency.webp)
+
 
 - 为什么要使用多线程呢?
 从计算机底层来说： 线程可以比作是轻量级的进程，是程序执行的最小单位,线程间的切换和调度的成本远远小于进程。另外，多核 CPU 时代意味着多个线程可以同时运行，这减少了线程上下文切换的开销。
@@ -94,6 +101,8 @@ public final long incrementAndGet() {
 ## `synchronized` keywords
 A synchronized block of code can only be executed by one thread at a time.
 - Syntax [Java synchronized keyword](https://howtodoinjava.com/java/keywords/java-synchronized/)
+
+
 ```
 // code block
 synchronized( lockObject )
@@ -356,7 +365,9 @@ wait() – for multi-thread-synchronization.
 ## Java Thread Pool
 [Java Pooling Practice in meituan](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
 [Design and thinking of Microservices flow limit](https://mp.weixin.qq.com/s?__biz=MzI4MTY5NTk4Ng==&mid=2247488993&idx=1&sn=4b9d5deedd0e626c456744f04b499bbb&source=41#wechat_redirect)
+
 ![ThreadPoolExecutor](../assets/img/sample/ThreadPoolExecutor.png)
+
 - Throttling
 Throttling is the capability of regulating the rate of input for a system where output rate is slower than input. It is necessary to stop the system from crashing or resource exhaustion.
 [Java ThreadPoolExecutor and BlockingQueue Example](https://howtodoinjava.com/java/multi-threading/how-to-use-blockingqueue-and-threadpoolexecutor-in-java/)
@@ -728,7 +739,9 @@ run()方法是在本线程里的，只是线程里的一个函数,而不是多�
 
 - 线程池都有哪些状态？
 线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
+
 ![](../assets/img/sample/thread-pool-life-cycle.png)
+
 
 - 线程池中 submit()和 execute()方法有什么区别？
 

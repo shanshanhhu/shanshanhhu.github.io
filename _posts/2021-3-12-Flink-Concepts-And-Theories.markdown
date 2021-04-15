@@ -8,7 +8,7 @@ tags: [flink]
 # Flink Architecture
 [Official Documents](https://ci.apache.org/projects/flink/flink-docs-stable/concepts/flink-architecture.html)
 ## Flink Cluster
-![](../assets/img/sample/flink-cluster.jpg)
+![](../assets/img/sample/flink-cluster.png)
 The Flink runtime consists of two types of processes: a JobManager and one or more TaskManagers.
 The Client is not part of the runtime and program execution, but is used to prepare and send a dataflow to the JobManager. After that, the client can disconnect (detached mode), or stay connected to receive progress reports (attached mode).
 
@@ -59,7 +59,7 @@ The barriers then flow downstream. When an intermediate operator has received a 
 Once snapshot n has been completed, the job will never again ask the source for records from before Sn, since at that point these records (and their descendant records) will have passed through the entire data flow topology.
 ![](../assets/img/sample/stream_aligning.png)
 #### Snapshotting Operator State
-![](../assets/img/sample/checkpointing.avg)
+![](../assets/img/sample/checkpointing.png)
 The resulting snapshot contains:
 For each parallel stream data source, the offset/position in the stream when the snapshot was started
 For each operator, a pointer to the state that was stored as part of the snapshot
@@ -143,16 +143,20 @@ Watermarks are crucial for out-of-order streams, as illustrated below, where the
 Watermarks are generated at, or directly after, source functions. Each parallel subtask of a source function usually generates its watermarks independently. These watermarks define the event time at that particular parallel source.
 As the watermarks flow through the streaming program, they advance the event time at the operators where they arrive. Whenever an operator advances its event time, it generates a new watermark downstream for its successor operators.
 Some operators consume multiple input streams; a union, for example, or operators following a keyBy(…) or partition(…) function. Such an operator’s current event time is the minimum of its input streams’ event times. As its input streams update their event times, so does the operator.
-![](../assets/img/sample/parallel_streams_watermarks.avg)
+![](../assets/img/sample/parallel_streams_watermarks.png)
 
 ## Windowing
 [Introducing Stream Windows in Apache Flink](https://flink.apache.org/news/2015/12/04/Introducing-windows.html)
 - tumbling windows (no overlap)
+
 ![](../assets/img/sample/window-tumbling-window.png)
+
 - sliding windows (with overlap)
+
 ![](../assets/img/sample/window-sliding-window.png)
 - session windows (punctuated by a gap of inactivity).
 Windows on a full stream are called *AllWindows* in Flink. In Flink, we call such partitioned windows simply Windows, as they are the common case for distributed streams.
+
 ![](../assets/img/sample/windows-keyed.png)
 
 ### Allowed Lateness
@@ -160,6 +164,7 @@ When working with event-time windowing, it can happen that elements arrive late,
 By default, late elements are dropped when the watermark is past the end of the window. However, Flink allows to specify a maximum allowed lateness for window operators. Allowed lateness specifies by how much time elements can be late before they are dropped, and its default value is 0. Elements that arrive after the watermark has passed the end of the window but before it passes the end of the window plus the allowed lateness, are still added to the window.
 
 ### Dissecting Flink’s windowing mechanics
+
 ![](../assets/img/sample/window-mechanics.png)
 Elements that arrive at a window operator are handed to a *WindowAssigner*. The WindowAssigner assigns elements to one or more windows, possibly creating new windows. A Window itself is just an identifier for a list of elements and may provide some optional meta information, such as begin and end time in case of a TimeWindow.
 

@@ -68,6 +68,8 @@ WHERE columnN LIKE pattern;
 ```
 - Wildcard Characters in MS Access
 ![](../assets/img/sample/SQL-Wildcard-Characters.png)
+
+
 ```sql
 // IN
 SELECT column_name(s)
@@ -125,6 +127,8 @@ WHERE condition   // where clause cannot use aggregate function.
 GROUP BY Country
 HAVING COUNT(CustomerID) > 5;
 ```
+
+
 ### UPDATE
 ```sql
 UPDATE table_name
