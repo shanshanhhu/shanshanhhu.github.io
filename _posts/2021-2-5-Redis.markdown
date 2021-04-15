@@ -224,7 +224,7 @@ SUNIONSTORE normally performs the union between multiple sets, and stores the re
 - SCARD
 the cardinality of a set.
 # all redis-cli commands
-![redis cli](https://www.w3resource.com/redis/index.php)
+[redis cli](https://www.w3resource.com/redis/index.php)
 [](https://redis.io/commands#hash)
 
 ### Redis Sorted sets

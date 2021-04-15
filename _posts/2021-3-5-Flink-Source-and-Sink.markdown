@@ -6,7 +6,7 @@ tags: [flink]
 ---
 
 # 继承关系
-![](../assets/img/sample/flink-source.png)
+![](/assets/img/sample/flink-source.png)
 
 ## RichSourceFunction(可并行)
-![](../assets/img/sample/flink_rich_source_function.png)
+![](/assets/img/sample/flink_rich_source_function.png)

@@ -8,7 +8,7 @@ tags: [flink]
 # Flink Architecture
 [Official Documents](https://ci.apache.org/projects/flink/flink-docs-stable/concepts/flink-architecture.html)
 ## Flink Cluster
-![](../assets/img/sample/flink-cluster.png)
+![](/assets/img/sample/flink-cluster.png)
 The Flink runtime consists of two types of processes: a JobManager and one or more TaskManagers.
 The Client is not part of the runtime and program execution, but is used to prepare and send a dataflow to the JobManager. After that, the client can disconnect (detached mode), or stay connected to receive progress reports (attached mode).
 
@@ -28,7 +28,7 @@ There must always be at least one TaskManager. The smallest unit of resource sch
 ### Tasks and Operator Chains
 For distributed execution, Flink chains operator subtasks together into tasks. Each task is executed by one thread. Chaining operators together into tasks is a useful optimization: it reduces the overhead of thread-to-thread handover and buffering, and increases overall throughput while decreasing latency.
 The sample dataflow in the figure below is executed with five subtasks, and hence with five parallel threads.
-![](../assets/img/sample/tasks_chains.png)
+![](/assets/img/sample/tasks_chains.png)
 
 ### Task Slots and Resources
 Each worker (TaskManager) is a JVM process, and may execute one or more subtasks in separate threads. To control how many tasks a TaskManager accepts, it has so called task slots (at least one).
@@ -37,10 +37,10 @@ Tasks in the same JVM share TCP connections (via multiplexing) and heartbeat mes
 #### benefits of slot sharing
 - A Flink cluster needs exactly as many task slots as the highest parallelism used in the job. No need to calculate how many tasks (with varying parallelism) a program contains in total.
 - It is easier to get better resource utilization. Without slot sharing, the non-intensive source/map() subtasks would block as many resources as the resource intensive window subtasks. With slot sharing, increasing the base parallelism in our example from two to six yields full utilization of the slotted resources, while making sure that the heavy subtasks are fairly distributed among the TaskManagers.
-![](../assets/img/sample/slot_sharing.png)
+![](/assets/img/sample/slot_sharing.png)
 
 ## Flink Job Submission Process
-![](../assets/img/sample/flink-job-submission.png)
+![](/assets/img/sample/flink-job-submission.png)
 An Application Master (AM) is a per-Yarn - Application (app) daemon to look after the lifecycle of the Yarn - Job.
 
 # Stateful Stream Processing
@@ -53,18 +53,18 @@ The central part of Flink’s fault tolerance mechanism is drawing consistent sn
 
 #### Barriers
 A core element in Flink’s distributed snapshotting are the stream barriers. These barriers are injected into the data stream and flow with the records as part of the data stream. Barriers never overtake records, they flow strictly in line. A barrier separates the records in the data stream into the set of records that goes into the current snapshot, and the records that go into the next snapshot. Each barrier carries the ID of the snapshot whose records it pushed in front of it.
-![](../assets/img/sample/stream_barriers.png)
+![](/assets/img/sample/stream_barriers.png)
 Stream barriers are injected into the parallel data flow at the stream sources. The point where the barriers for snapshot n are injected (let’s call it Sn) is the position in the source stream up to which the snapshot covers the data. For example, in Apache Kafka, this position would be the last record’s offset in the partition. This position Sn is reported to the checkpoint coordinator (Flink’s JobManager).
 The barriers then flow downstream. When an intermediate operator has received a barrier for snapshot n from all of its input streams, it emits a barrier for snapshot n into all of its outgoing streams. Once a sink operator (the end of a streaming DAG) has received the barrier n from all of its input streams, it acknowledges that snapshot n to the checkpoint coordinator. After all sinks have acknowledged a snapshot, it is considered completed.
 Once snapshot n has been completed, the job will never again ask the source for records from before Sn, since at that point these records (and their descendant records) will have passed through the entire data flow topology.
-![](../assets/img/sample/stream_aligning.png)
+![](/assets/img/sample/stream_aligning.png)
 #### Snapshotting Operator State
-![](../assets/img/sample/checkpointing.png)
+![](/assets/img/sample/checkpointing.png)
 The resulting snapshot contains:
 For each parallel stream data source, the offset/position in the stream when the snapshot was started
 For each operator, a pointer to the state that was stored as part of the snapshot
 #### Unaligned Checkpointing
-![](../assets/img/sample/stream_unaligning.png)
+![](/assets/img/sample/stream_unaligning.png)
 ABS（Asynchronous Barrier Snapshotting）
 The figure depicts how an operator handles unaligned checkpoint barriers:
 
@@ -135,29 +135,29 @@ Event time has several benefits over processing time. First of all, it decouples
 Out of order messages can be caused by delay, backpressure.
 The mechanism in Flink to measure progress in event time is `watermarks`.
 Watermarks flow as part of the data stream and carry a timestamp t. A Watermark(t) declares that event time has reached time t in that stream, meaning that there should be no more elements from the stream with a timestamp t’ <= t (i.e. events with timestamps older or equal to the watermark).
-![](../assets/img/sample/stream_watermark_in_order.png)
+![](/assets/img/sample/stream_watermark_in_order.png)
 Watermarks are crucial for out-of-order streams, as illustrated below, where the events are not ordered by their timestamps. In general a watermark is a declaration that by that point in the stream, all events up to a certain timestamp should have arrived. Once a watermark reaches an operator, the operator can advance its internal event time clock to the value of the watermark.
-![](../assets/img/sample/stream_watermark_out_of_order.png)
+![](/assets/img/sample/stream_watermark_out_of_order.png)
 
 ## Watermarks in Parallel Streams
 Watermarks are generated at, or directly after, source functions. Each parallel subtask of a source function usually generates its watermarks independently. These watermarks define the event time at that particular parallel source.
 As the watermarks flow through the streaming program, they advance the event time at the operators where they arrive. Whenever an operator advances its event time, it generates a new watermark downstream for its successor operators.
 Some operators consume multiple input streams; a union, for example, or operators following a keyBy(…) or partition(…) function. Such an operator’s current event time is the minimum of its input streams’ event times. As its input streams update their event times, so does the operator.
-![](../assets/img/sample/parallel_streams_watermarks.png)
+![](/assets/img/sample/parallel_streams_watermarks.png)
 
 ## Windowing
 [Introducing Stream Windows in Apache Flink](https://flink.apache.org/news/2015/12/04/Introducing-windows.html)
 - tumbling windows (no overlap)
 
-![](../assets/img/sample/window-tumbling-window.png)
+![](/assets/img/sample/window-tumbling-window.png)
 
 - sliding windows (with overlap)
 
-![](../assets/img/sample/window-sliding-window.png)
+![](/assets/img/sample/window-sliding-window.png)
 - session windows (punctuated by a gap of inactivity).
 Windows on a full stream are called *AllWindows* in Flink. In Flink, we call such partitioned windows simply Windows, as they are the common case for distributed streams.
 
-![](../assets/img/sample/windows-keyed.png)
+![](/assets/img/sample/windows-keyed.png)
 
 ### Allowed Lateness
 When working with event-time windowing, it can happen that elements arrive late, i.e. the watermark that Flink uses to keep track of the progress of event-time is already past the end timestamp of a window to which an element belongs.
@@ -165,7 +165,7 @@ By default, late elements are dropped when the watermark is past the end of the 
 
 ### Dissecting Flink’s windowing mechanics
 
-![](../assets/img/sample/window-mechanics.png)
+![](/assets/img/sample/window-mechanics.png)
 Elements that arrive at a window operator are handed to a *WindowAssigner*. The WindowAssigner assigns elements to one or more windows, possibly creating new windows. A Window itself is just an identifier for a list of elements and may provide some optional meta information, such as begin and end time in case of a TimeWindow.
 
 Each window owns a *Trigger* that decides when the window is evaluated or purged. The trigger is called for each element that is inserted into the window and when a previously registered timer times out.

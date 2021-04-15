@@ -205,7 +205,7 @@ fi;
 
 #### Java
 
-```java
+```
 private void writeObject(java.io.ObjectOutputStream s)
   throws java.io.IOException {
   // Write out any hidden serialization magic

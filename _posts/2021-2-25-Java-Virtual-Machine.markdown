@@ -101,7 +101,7 @@ This late binding of the methods and variables makes changes in other classes th
 # Java Garbage Collection Basics
 [Offical Tutorial：](https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html)
 ## Hotspot Architecture
-![](../assets/img/sample/Hotspot-Architecture.PNG)
+![](/assets/img/sample/Hotspot-Architecture.PNG)
 The main components of the JVM include the classloader, the runtime data areas, and the execution engine.
 - Performance
 Typically, when tuning a Java application, the focus is on one of two main goals: `responsiveness` or `throughput`. When tuning performance, Most tuning options relate to sizing the heap and choosing the most appropriate garbage collector for your situation. The JIT compiler also has a big impact on performance but rarely requires tuning with the newer versions of the JVM.
@@ -113,27 +113,27 @@ Automatic garbage collection is the process of looking at heap memory, identifyi
 ### Basic GC Process
 1. Marking
 the garbage collector identifies which pieces of memory are in use and which are not.
-![](../assets/img/sample/marking.PNG)
+![](/assets/img/sample/marking.PNG)
 2. Deletion
 - Normal Deletion
-![](../assets/img/sample/Normal-Deletion.PNG)
+![](/assets/img/sample/Normal-Deletion.PNG)
 - Deletion with Compacting
-![](../assets/img/sample/Deletion-with-Compacting.PNG)
+![](/assets/img/sample/Deletion-with-Compacting.PNG)
 
 ### Why Generational Garbage Collection?
 As stated earlier, having to mark and compact all the objects in a JVM is inefficient. As more and more objects are allocated, the list of objects grows and grows leading to longer and longer garbage collection time. However, empirical analysis of applications has shown that most objects are short lived.
 
 ### JVM Generations
-![](../assets/img/sample/JVM-Generations.PNG)
+![](/assets/img/sample/JVM-Generations.PNG)
 - The Young Generation is where all new objects are allocated and aged.
 - The Old Generation is used to store long surviving objects.
 - The Permanent generation contains metadata required by the JVM to describe the classes and methods used in the application. The permanent generation is populated by the JVM at runtime based on classes in use by the application. In addition, Java SE library classes and methods may be stored here.
 
 ### The Generational Garbage Collection Process
-![copy-referenced-objects](../assets/img/sample/copy-referenced-objects.PNG)
-![object-aging](../assets/img/sample/object-aging.PNG)
-![additional-aging](../assets/img/sample/additional-aging.PNG)
-![promotion](../assets/img/sample/promotion.PNG)
+![copy-referenced-objects](/assets/img/sample/copy-referenced-objects.PNG)
+![object-aging](/assets/img/sample/object-aging.PNG)
+![additional-aging](/assets/img/sample/additional-aging.PNG)
+![promotion](/assets/img/sample/promotion.PNG)
 
 ### Java Garbage Collectors
 - The Serial GC
@@ -152,5 +152,5 @@ to set the number of threads use:
 The Garbage First or G1 garbage collector is available in Java 7 and is designed to be the long term replacement for the CMS collector. The G1 collector is a parallel, concurrent, and incrementally compacting low-pause garbage collector.
 -XX:+UseG1GC
 > Command: java -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -XX:+UseSerialGC -jar c:\javademos\demo\jfc\Java2D\Java2demo.jar
-![](../assets/img/sample/GC-Parameter.png)
+![](/assets/img/sample/GC-Parameter.png)
 

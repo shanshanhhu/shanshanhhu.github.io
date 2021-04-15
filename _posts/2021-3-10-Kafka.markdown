@@ -14,12 +14,12 @@ If a broker failure is indicated (<e.g by a registration in the ZooKeeper disapp
 ## In Sync Replica (ISR)
 [Kafka Consumer Rebalance](https://sergiuoltean.com/2020/08/19/kafka-consumer-rebalance/)
 ## The Acks
-![](../assets/img/sample/Acks-parameter-settings.png)
+![](/assets/img/sample/Acks-parameter-settings.png)
 
 # Auto Commit
 Auto commit by default commits every five seconds.
-![](../assets/img/sample/kafka_offset.jpg)
-![](../assets/img/sample/kafka_events_lost.jpg)
+![](/assets/img/sample/kafka_offset.jpg)
+![](/assets/img/sample/kafka_events_lost.jpg)
 # Rebalance
 - When a new consumer joins a consumer group the set of consumers attempt to "rebalance" the load to assign partitions to each consumer. If the set of consumers changes while this assignment is taking place the rebalance will fail and retry. This setting controls the maximum number of attempts before giving up.
 the command for this is: rebalance.max.retries and is set to 4 by default.

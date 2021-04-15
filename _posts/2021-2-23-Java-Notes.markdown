@@ -105,7 +105,7 @@ s=list.toArray(new String[0]);//没有指定类型的话会报错
 Queue<String> queue = new LinkedList<String>();  // LinkedList类实现了Queue接口
 ```
 
-![queue method](../assets/img/sample/queue.png)
+![queue method](/assets/img/sample/queue.png)
 The `offer` method inserts an element if possible, otherwise returning false. This differs from the `Collection.add` method, which can fail to add an element only by throwing an unchecked exception. The offer method is designed for use when failure is a normal, rather than exceptional occurrence, for example, in fixed-capacity (or "bounded") queues.
 The `remove()` and `poll()` methods remove and return the head of the queue. Exactly which element is removed from the queue is a function of the queue's ordering policy, which differs from implementation to implementation. The `remove()` and `poll()` methods differ only in their behavior when the queue is empty: the `remove()` method throws an exception, while the `poll()` method returns `null`.
 The `element()` and `peek()` methods return, but do not remove, the head of the queue.
@@ -143,7 +143,7 @@ System.out.println(n);// 1.255
 ```
 
 - 如何防止精度丢失
-![精度](../assets/img/sample/bigdecimal.png)
+![精度](/assets/img/sample/bigdecimal.png)
 
 ## Map
 ### Map Initialization
@@ -179,7 +179,7 @@ Map<String, Integer> map = Stream.of(
 ```
 
 ### TreeMap --- Comparator
-![hierarchy](../assets/img/sample/treemap-hierarchy.jpg)
+![hierarchy](/assets/img/sample/treemap-hierarchy.jpg)
 Key Points: [Source](https://www.callicoder.com/java-treemap/)
 - A TreeMap is always sorted based on keys. You cannot sort TreeMap on values. The sorting order follows the natural ordering of keys. You may also provide a custom Comparator to the TreeMap at the time of creation to let it sort the keys using the supplied Comparator.
 - A TreeMap cannot contain duplicate keys.

@@ -34,6 +34,6 @@ Redo Log记录的是新数据的备份。在事务提交前，只要将RedoLog�
 
 # 事务的四种隔离级别
 在数据库操作中，为了有效保证并发读取数据的正确性，提出的事务隔离级别。
-![](../assets/img/sample/Innodb.png)
+![](/assets/img/sample/Innodb.png)
 
 # MVCC

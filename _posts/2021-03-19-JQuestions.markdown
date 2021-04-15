@@ -40,7 +40,7 @@ tags: [notes]
 - 列可动态扩展。比如人员信息表中需要添加一个新的“address”字段，MySQL需要提前alter表，HBase的话直接插入即可。
 - Hbase支持高并发读写操作
 - 表的稀疏性。能节省空间。HBase是把每一列都看做是一条记录，row+列名作为key，data作为value，依次存放。假如某一行的某一个列没有数据，则直接跳过该列。
-![](../assets/img/sample/hbase-mysql.jpg)
+![](/assets/img/sample/hbase-mysql.jpg)
 - Hbase自动切分数据，scalability.
 2. **disadvantages**
 - 不能支持条件查询，只支持按照Row key来查询.
@@ -158,7 +158,7 @@ kafka采用zookeeper对集群中的broker、consumer进行管理，可以注册t
 在数据库结构redisDb中的expires字典中保存了数据库中所有键的过期时间，我们称expire这个字典为过期字典。
 1. 过期字典是一个指针，指向键空间的某个键对象。
 2. 过期字典的值是一个longlong类型的整数，这个整数保存了键所指向的数据库键的过期时间–一个毫秒级的 UNIX 时间戳。
-![](../assets/img/sample/redis-expire-dict.png)
+![](/assets/img/sample/redis-expire-dict.png)
 ## Spring, SpringMVC, Springboot, Spring Cloud对比各有什么特点？
 [SPRING、SPRINGMVC、SPRINGBOOT和SPRINGCLOUD的联系与区别](https://www.ngui.cc/51cto/show-551569.html)
 - spring 是一个一站式的轻量级的java开发框架，核心是控制反转（IOC）和面向切面（AOP）.
@@ -166,7 +166,7 @@ kafka采用zookeeper对集群中的broker、consumer进行管理，可以注册t
 - springBoot框架相对于springMvc框架来说，更专注于开发微服务后台接口，不开发前端视图，同时遵循默认优于配置，简化了插件配置流程，不需要配置xml，相对springmvc，大大简化了配置流程。
 - spring cloud大部分的功能插件都是基于springBoot去实现的，springCloud关注于全局的微服务整合和管理，将多个springBoot单体微服务进行整合以及管理； springCloud依赖于springBoot开发，而springBoot可以独立开发。
 ## 画出B+树结构
-![](../assets/img/sample/b-puls-plus.png)
+![](/assets/img/sample/b-puls-plus.png)
 ## Mysql最左索引匹配原则
 - 最左匹配原则
 (A,B,C) 这样3列，mysql会首先匹配A，然后再B，C。如果用(B,C)这样的数据来检索的话，就会找不到A使得索引失效。如果使用(A,C)这样的数据来检索的话，就会先找到所有A的值然后匹配C，此时联合索引是失效的。把最常用的，筛选数据最多的字段放在左侧。
@@ -490,5 +490,5 @@ Hashtable (同一把锁, 全表锁) :使用 synchronized 来保证线程安全�
 
 ## 大数据生态圈
 [大数据生态圈](https://zhuanlan.zhihu.com/p/63180892)
-[](../assets/img/sample/bigdata-ecology.jpg)
+[](/assets/img/sample/bigdata-ecology.jpg)
 ## HDFS

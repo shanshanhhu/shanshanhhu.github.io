@@ -5,8 +5,8 @@ categories: [bigdata, roadmap]
 tags: [roadmap]     # TAG names should always be lowercase
 ---
 
-![Big Data Platform](../assets/img/sample/big_data_platform.jpg)
-![Big Data Platform2](../assets/img/sample/big_data_platform2.jpg)
+![Big Data Platform](/assets/img/sample/big_data_platform.jpg)
+![Big Data Platform2](/assets/img/sample/big_data_platform2.jpg)
 # 编程语言
 - Java
    - Java虚拟机
@@ -92,4 +92,4 @@ tags: [roadmap]     # TAG names should always be lowercase
 3. [Codecademy](https://www.codecademy.com/)
 4. [我爱电子书网](https://www.52doc.com/)
 
-![Big Data](../assets/img/sample/big_data.jpg)
+![Big Data](/assets/img/sample/big_data.jpg)

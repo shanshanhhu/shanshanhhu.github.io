@@ -5,10 +5,10 @@ categories: [bigdata, datawarehouse]
 tags: [datawarehouse]
 ---
 # A general data layered design
-![](../assets/img/sample/data-warehouse-layer.jpeg)
+![](/assets/img/sample/data-warehouse-layer.jpeg)
 [](https://cloud.tencent.com/developer/article/1396891)
 - the advantages of data layered design
-![](../assets/img/sample/benefits-of-dw.jpg)
+![](/assets/img/sample/benefits-of-dw.jpg)
 1. 数据结构清晰：每一个数据分层都有它的作用域和职责，在使用表的时候能更方便地定位和理解
 2. 减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算
 3. 统一数据口径：通过数据分层，提供统一的数据出口，统一对外输出的数据口径

@@ -44,14 +44,14 @@ init_files() {
   if $_no_gh; then
     rm -rf .github
   else
-    mv .github/workflows/$ACTIONS_WORKFLOW.hook .
+    mv .github/workflows/$ACTIONS_WORKFLOW .
     rm -rf .github
     mkdir -p .github/workflows
-    mv ./${ACTIONS_WORKFLOW}.hook .github/workflows/${ACTIONS_WORKFLOW}
+    mv ./${ACTIONS_WORKFLOW} .github/workflows/${ACTIONS_WORKFLOW}
   fi
 
   rm -f .travis.yml
-  rm -rf _posts/* docs
+  #rm -rf _posts/* docs
 
   git add -A && git add .github -f
   git commit -m "[Automation] Initialize the environment." -q

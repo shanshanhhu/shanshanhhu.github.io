@@ -19,7 +19,7 @@ tags: [concurrency]
 4. 包含关系：如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程。
 5. 影响关系：一个进程崩溃后，在保护模式下不会对其他进程产生影响，但是一个线程崩溃整个进程都死掉。所以多进程要比多线程健壮。
 
-![process](../assets/img/sample/process.png)
+![process](/assets/img/sample/process.png)
 
 -  程序计数器为什么是私有的?
 The program counter (PC) holds the address of the next instruction to be executed.
@@ -32,7 +32,7 @@ The program counter (PC) holds the address of the next instruction to be execute
 虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。
 为了保证线程中的局部变量不被别的线程访问到，虚拟机栈和本地方法栈是线程私有的。
 
-![java stacks](../assets/img/sample/java-stacks.gif)
+![java stacks](/assets/img/sample/java-stacks.gif)
 
 **Frame** :[The Structure of the Java Virtual Machine](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html)
 A frame is used to store data and partial results, as well as to perform dynamic linking, return values for methods, and dispatch exceptions.
@@ -47,7 +47,7 @@ native methods :methods written in a language other than the Java programming la
   - 并行:多个处理器或者是多核的处理器同时处理多个不同的任务。是指同时发生的两个并发事件。
 > 前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生．
 
-![](../assets/img/sample/concurrency.webp)
+![](/assets/img/sample/concurrency.webp)
 
 
 - 为什么要使用多线程呢?
@@ -62,8 +62,8 @@ native methods :methods written in a language other than the Java programming la
 当前任务在执行完 CPU 时间片切换到另一个任务之前会先保存自己的状态，以便下次再切换回这个任务时，可以再加载这个任务的状态。任务从保存到再加载的过程就是一次上下文切换。
 ## Java Thread Life Cycle and Thread States
 [Details:](https://howtodoinjava.com/java/multi-threading/java-thread-life-cycle-and-thread-states/)
-![](../assets/img/sample/Java-Thraed-Life-Cycle-States.jpg)
-![](../assets/img/sample/RUNNABLE-VS-RUNNING.png)
+![](/assets/img/sample/Java-Thraed-Life-Cycle-States.jpg)
+![](/assets/img/sample/RUNNABLE-VS-RUNNING.png)
 
 ## Volatile Keyword
 [volatile:](http://tutorials.jenkov.com/java-concurrency/volatile.html)The Java volatile keyword is used to mark a Java variable as "being stored in main memory". More precisely that means, that every read of a volatile variable will be read from the computer's main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache.
@@ -366,7 +366,7 @@ wait() – for multi-thread-synchronization.
 [Java Pooling Practice in meituan](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
 [Design and thinking of Microservices flow limit](https://mp.weixin.qq.com/s?__biz=MzI4MTY5NTk4Ng==&mid=2247488993&idx=1&sn=4b9d5deedd0e626c456744f04b499bbb&source=41#wechat_redirect)
 
-![ThreadPoolExecutor](../assets/img/sample/ThreadPoolExecutor.png)
+![ThreadPoolExecutor](/assets/img/sample/ThreadPoolExecutor.png)
 
 - Throttling
 Throttling is the capability of regulating the rate of input for a system where output rate is slower than input. It is necessary to stop the system from crashing or resource exhaustion.
@@ -740,7 +740,7 @@ run()方法是在本线程里的，只是线程里的一个函数,而不是多�
 - 线程池都有哪些状态？
 线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
 
-![](../assets/img/sample/thread-pool-life-cycle.png)
+![](/assets/img/sample/thread-pool-life-cycle.png)
 
 
 - 线程池中 submit()和 execute()方法有什么区别？

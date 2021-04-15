@@ -10,7 +10,7 @@ tags: [questions]
 - **面向对象（封装，继承，多态**
 - **[平台无关性](https://segmentfault.com/a/1190000021898950)**（由Java虚拟机实现: Java通过规定Java语言中基本数据类型的取值范围和行为，统一将Java文件编译成Class文件（字节码文件），并且最后由Java虚拟机将Class文件转换成对应平台的二进制文件，才实现了平台无关性。）
 
-![Java编译过程](../assets/img/sample/java-compile.png)
+![Java编译过程](/assets/img/sample/java-compile.png)
 
 编译型语言（C，C++）是指编译器针对特定的操作系统将源代码一次性翻译成可被该平台执行的机器码；解释型语言（Java, C#）是指解释器对源程序逐行解释成特定平台的机器码并立即执行。
 > 在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 .class 的文件），
@@ -35,14 +35,14 @@ tags: [questions]
 # Java语法
 1. **基本类型占存储空间的大小**
 
-![基本类型](../assets/img/sample/basic-variable-size.jpg)
+![基本类型](/assets/img/sample/basic-variable-size.jpg)
 
 2. **标识符和关键字**
 标识符（Identifier）是用户编程时使用的名字，用于给变量、常量、函数、语句块等命名，以建立起名称与使用之间的关系。
 关键字（Keywords）是由Java语言规定的具有特定意义的字符串，通常也称为保留字。我们定义的标识符不能与关键字相同，否则会出现错误。
 3. **public, protected, private**
 
-![](../assets/img/sample/identifier.png)
+![](/assets/img/sample/identifier.png)
 
 4. **Java 泛型了解么？什么是类型擦除？介绍一下常用的通配符？**
 **[Java泛型](https://www.baeldung.com/java-generics)**是在JDK 5.0中引入的，目的是减少bug并在类型上增加额外的抽象层。
@@ -161,7 +161,7 @@ Also, these Java classes aren't loaded into memory all at once, but when require
 
 Delegation Model:
 
-![](../assets/img/sample/java-classloader.png)
+![](/assets/img/sample/java-classloader.png)
 
 [Custom Classloader](https://www.baeldung.com/java-classloaders)
 
@@ -253,7 +253,7 @@ class Dog{
     }
 }
 ```
-![重载](../assets/img/sample/overload.jpg)
+![重载](/assets/img/sample/overload.jpg)
 
 3. 深拷贝 vs 浅拷贝
 **浅拷贝**：对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝。
@@ -279,7 +279,7 @@ class Dog{
 [Differences between Procedural and Object Oriented Programming](https://www.geeksforgeeks.org/differences-between-procedural-and-object-oriented-programming/)
 Characteristics of an Object Oriented Programming language
 
-![Characteristics of an Object Oriented Programming language](../assets/img/sample/OOPs-Concepts.jpg)
+![Characteristics of an Object Oriented Programming language](/assets/img/sample/OOPs-Concepts.jpg)
 
 2. **面向对象特征** [Ref](https://www.careerride.com/oops-characteristics.aspx)
 - **封装（Encapsulation）**
@@ -496,7 +496,7 @@ class Demo
 # 异常
 1. 异常类层次结构图
 
-![异常类层次结构图](../assets/img/sample/Exception.png)
+![异常类层次结构图](/assets/img/sample/Exception.png)
 
 - Exception :程序本身可以处理的异常，可以通过 catch 来进行捕获。Exception 又可以分为 受检查异常(必须处理, 不处理没法通过编译) 和 不受检查异常(可以不处理，不处理也可通过编译)。
 - Error ：Error 属于程序无法处理的错误 ，我们没办法通过 catch 来进行捕获 。例如，

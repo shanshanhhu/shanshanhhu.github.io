@@ -181,7 +181,7 @@ if they have some coordinate that is different: for example, if x1 != x1'.
 
 **Example:**
 
-![matrix photo](../assets/img/sample/leetcode1074.jpg)
+![matrix photo](/assets/img/sample/leetcode1074.jpg)
 > Input: matrix = \[\[0,1,0],\[1,1,1],\[0,1,0]], target = 0
 >
 > Output: 4
@@ -221,7 +221,7 @@ public:
 [Problem:](https://leetcode.com/problems/maximal-square/)
 Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.\
 **Example:**\
-![matrix photo](../assets/img/sample/leetcode221.jpg)\
+![matrix photo](/assets/img/sample/leetcode221.jpg)\
 Input: matrix = \[\["1","0","1","0","0"],\["1","0","1","1","1"],\["1","1","1","1","1"],\["1","0","0","1","0"]]\
 Output: 4
 ```
@@ -263,7 +263,7 @@ public:
 Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 **Example:**
 
-![matrix photo](../assets/img/sample/leetcode85.jpg)
+![matrix photo](/assets/img/sample/leetcode85.jpg)
 > Input: matrix = \[\["1","0","1","0","0"],\["1","0","1","1","1"],\["1","1","1","1","1"],\["1","0","0","1","0"]]
 >
 > Output: 6

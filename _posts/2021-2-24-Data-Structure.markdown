@@ -90,7 +90,7 @@ public class QuickSort {
 ```
 
 ## Shell Sort
-![](../assets/img/sample/shell-sort.png)
+![](/assets/img/sample/shell-sort.png)
 ```
 void shellSort(int a[], int n) {
    for (int gap = n / 2; gap > 0; gap /= 2) {
@@ -375,9 +375,9 @@ Why AVL Trees?
 Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O(h) time where h is the height of the BST. The cost of these operations may become O(n) for a skewed Binary tree. If we make sure that height of the tree remains O(Logn) after every insertion and deletion, then we can guarantee an upper bound of O(Logn) for all these operations.
 
 ## B-Tree
-![b-tree-structure](../assets/img/sample/b-tree-structure.jpg)
+![b-tree-structure](/assets/img/sample/b-tree-structure.jpg)
 [](https://www.geeksforgeeks.org/introduction-of-b-tree-2/)
-![](../assets/img/sample/btree.png)
+![](/assets/img/sample/btree.png)
 - a self-balancing search tree
 - The main idea of using B-Trees is to reduce the number of disk accesses.
 - Time Complexity: Search, Insert, Delete : O(log n)
@@ -394,9 +394,9 @@ Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O
 8. Like other balanced Binary Search Trees, time complexity to search, insert and delete is O(log n).
 
 ## B+ Tree
-[b-plus-tree-structure](../assets/img/sample/b-plus-tree-structure.jpg)
+[b-plus-tree-structure](/assets/img/sample/b-plus-tree-structure.jpg)
 [B+ TREE : Search, Insert and Delete Operations Example](https://www.guru99.com/introduction-b-plus-tree.html)
-![](../assets/img/sample/b-plus-tree.png)
+![](/assets/img/sample/b-plus-tree.png)
 The order, or branching factor, b of a B+ tree measures the capacity of nodes (i.e., the number of children nodes) for internal nodes in the tree. The actual number of children for a node, referred to here as m, is constrained for internal nodes so that ![](../assets/img/sample/b-tree-order.png).
 - The advantages of B+ Tree
 Because B+ trees don’t have data associated with interior nodes, more keys can fit on a page of memory. Therefore, it will require fewer cache misses in order to access data that is on a leaf node.
@@ -499,7 +499,7 @@ Bloom Filter 是由一个长度为 m 的比特位数组（bit array）与 k 个�
 当要插入一个元素时，将其数据分别输入 k 个哈希函数，产生 k 个哈希值。以哈希值作为位数组中的下标，将所有 k 个对应的比特置为 1。
 
 当要查询（即判断是否存在）一个元素时，同样将其数据输入哈希函数，然后检查对应的 k 个比特。如果有任意一个比特为 0，表明该元素一定不在集合中。如果所有比特均为 1，表明该元素有（较大的）可能性在集合中。为什么不是一定在集合中呢？因为一个比特被置为 1 有可能会受到其他元素的影响，这就是所谓“假阳性”（false positive）。相对地，“假阴性”（false negative）在 Bloom Filter 中是绝不会出现的。
-![](../assets/img/sample/Bloom-Filter-Summary-02.png)
+![](/assets/img/sample/Bloom-Filter-Summary-02.png)
 **优点：**
 不需要存储数据本身，只用比特表示，因此空间占用相对于传统方式有巨大的优势，并且能够保密数据；
 时间效率也较高，插入和查询的时间复杂度均为O(k)；
@@ -510,6 +510,6 @@ Bloom Filter 是由一个长度为 m 的比特位数组（bit array）与 k 个�
 ### Roaring Bitmap
 [RoaringBitmap数据结构及原理](https://blog.csdn.net/yizishou/article/details/78342499)
 [Apache Kylin 原理介绍与新架构分享（Kylin On Parquet）](https://www.infoq.cn/article/vOrjsJCgVAVPim5hsj6p)
-![roaringbitmap-introduction](../assets/img/sample/roaringbitmap-01.png)
-![array-container](../assets/img/sample/roaringbitmap-02.png)
-![bitmap-container](../assets/img/sample/roaringbitmap-03.png)
+![roaringbitmap-introduction](/assets/img/sample/roaringbitmap-01.png)
+![array-container](/assets/img/sample/roaringbitmap-02.png)
+![bitmap-container](/assets/img/sample/roaringbitmap-03.png)

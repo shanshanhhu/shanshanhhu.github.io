@@ -185,7 +185,7 @@ For more details and the better reading experience, please check out the [tutori
 
 ## Contributing
 
-The old saying, "Two heads are better than one." Consequently, welcome to report bugs, improve code quality or submit a new feature. For more information, see [contributing guidelines](.github/CONTRIBUTING.md).
+ The old saying, "Two heads are better than one." Consequently, welcome to report bugs, improve code quality or submit a new feature. For more information, see \[contributing guidelines](.github/CONTRIBUTING.md).
 
 ## Credits
 

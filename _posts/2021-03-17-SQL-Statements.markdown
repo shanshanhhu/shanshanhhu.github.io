@@ -67,7 +67,7 @@ FROM table_name
 WHERE columnN LIKE pattern;
 ```
 - Wildcard Characters in MS Access
-![](../assets/img/sample/SQL-Wildcard-Characters.png)
+![](/assets/img/sample/SQL-Wildcard-Characters.png)
 
 
 ```sql

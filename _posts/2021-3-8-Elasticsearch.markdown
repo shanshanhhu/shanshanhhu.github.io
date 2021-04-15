@@ -12,7 +12,7 @@ Elasticsearch is a distributed document store, a NoSQL database which stores a d
 An index can be thought of as an optimized collection of documents and each document is a collection of fields, which are the key-value pairs that contain your data. Data in the index is spread through the **shards**, which are searched independently.
 -  inverted index
 An inverted index lists every unique word that appears in any document and identifies all of the documents each word occurs in.By default, Elasticsearch indexes all data in every field and each indexed field has a dedicated, optimized data structure. For example, text fields are stored in inverted indices, and numeric and geo fields are stored in BKD trees.
-![](../assets/img/sample/inverse-index.png)
+![](/assets/img/sample/inverse-index.png)
 - schema-less
 Elasticsearch also has the ability to be schema-less, which means that documents can be indexed without explicitly specifying how to handle each of the different fields that might occur in a document.
 

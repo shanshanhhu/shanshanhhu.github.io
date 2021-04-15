@@ -5,8 +5,8 @@ categories: [bigdata, hadoop]
 tags: [hadoop]
 ---
 # Hadoop Architecture
-![](../assets/img/sample/hdfsarchitecture.png)
-![](../assets/img/sample/hadoop-architecture.png)
+![](/assets/img/sample/hdfsarchitecture.png)
+![](/assets/img/sample/hadoop-architecture.png)
 [hadoop-architecture](https://www.geeksforgeeks.org/hadoop-architecture/)
 the bandwidth available becomes lesser as we go away from:
 - Processes on the same node
@@ -21,12 +21,12 @@ It performs the distributed processing in parallel in a Hadoop cluster.
 MapReduce has mainly 2 tasks which are divided phase-wise:
 - Map Task
 - Reduce Task
-![](../assets/img/sample/mapreduce.png)
+![](/assets/img/sample/mapreduce.png)
 - For most jobs, it is better to make a split size equal to the size of an HDFS block (which is 64 MB, by default).
 - Execution of map tasks results into writing output to a local disk on the respective node and not to HDFS.
 - Reason for choosing local disk over HDFS is, to avoid replication which takes place in case of HDFS store operation.
 #### Jobtracker & Multiple Task Trackers
-![](../assets/img/sample/mapreduce-jobtracker.png)
+![](/assets/img/sample/mapreduce-jobtracker.png)
 - **Jobtracker(Master)**
 1. coordinate the activity by scheduling tasks to run on different data nodes.
 2. keeps track of the overall progress of each job. In the event of task failure, the job tracker can reschedule it on a different task tracker.
@@ -36,7 +36,7 @@ MapReduce has mainly 2 tasks which are divided phase-wise:
 3. periodically sends 'heartbeat' signal to the Jobtracker so as to notify him of the current state of the system.
 ###  HDFS(Hadoop distributed File System)
 HDFS creates multiple replicas of data blocks and distributes them on compute nodes in a cluster.
-![](../assets/img/sample/Namenode-and-Datanode.png)
+![](/assets/img/sample/Namenode-and-Datanode.png)
 - **NameNode(Master)**
 NameNode is mainly used for storing the Metadata.
 1. Meta Data can be the transaction logs that keep track of the user’s activity in a Hadoop cluster.

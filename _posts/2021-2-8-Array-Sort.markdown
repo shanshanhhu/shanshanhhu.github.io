@@ -53,7 +53,7 @@ partition (arr[], low, high)
 
 # Merge Sort
 [Source](https://www.geeksforgeeks.org/merge-sort/)
-![merge sort](../assets/img/sample/Merge-Sort-Tutorial.png)
+![merge sort](/assets/img/sample/Merge-Sort-Tutorial.png)
 ## Array Merge Sort Code
 ```cplusplus
 // C++ program for Merge Sort

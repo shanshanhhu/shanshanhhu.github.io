@@ -22,7 +22,7 @@ any update that reports "successful" to the client will not be lost
 
 # HBase Architecture
 [Interview Q&A](https://blog.csdn.net/weixin_42298209/article/details/112096326)
-![](../assets/img/sample/hbase-architecture.png)
+![](/assets/img/sample/hbase-architecture.png)
 
 - **Row Key**: Each row has a unique row key; the row key does not have a data type and is treated internally as a byte array. Row keys are uninterpreted bytes. Rows are lexicographically sorted with the lowest order appearing first in a table. The empty byte array is used to denote both the start and end of a tables' namespace.
 

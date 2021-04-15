@@ -6,7 +6,7 @@ tags: [linux]
 ---
 
 # The Linux Filesystem
-![The Linux Filesystem Structure](../assets/img/sample/The-Linux-filesystem.png)
+![The Linux Filesystem Structure](/assets/img/sample/The-Linux-filesystem.png)
 1. `/etc` Generally contains the Linux configuration files—files that control when and how programs start up
 2. /mnt Where other filesystems are attached or mounted to the filesystem
 
@@ -30,7 +30,7 @@ single-letter options, such as –h.
 
 ## Finding Stuff
 1. `locate` : search keywords
-![locate aircrack-ng](../assets/img/sample/locate.png)
+![locate aircrack-ng](/assets/img/sample/locate.png)
 Sometimes the results of locate can be overwhelming, giving you too much information. Also, locate
 uses a database that is usually only updated once a day, so if you just created
 a file a few minutes or a few hours ago, it might not appear in this list until
@@ -47,7 +47,7 @@ permissions, and the size.
 First I state the directory in which to start the search, in this case /
 Then I specify which type of file to search for, in this case f for an ordinary file.
 Last, I give the name of the file I’m searching for, in this case apache2.
-![find command](../assets/img/sample/find.png)
+![find command](/assets/img/sample/find.png)
 **Wildcards**
 Let’s say we’re doing a search on a directory that has the files cat, hat, what,
 and bat. The `?` wildcard is used to represent a single character, so a search
@@ -105,8 +105,8 @@ display the five lines immediately before a line that says # Step #6: Configure 
 6. `less` : Displaying and Filtering.
 > less /etc/snort/snort.conf
 If you press the forward slash (/) key, less will let you search for terms in the file.
-![less search](../assets/img/sample/less-search.png)
-![less-output](../assets/img/sample/less-output.png)
+![less search](/assets/img/sample/less-search.png)
+![less-output](/assets/img/sample/less-output.png)
 7. `sed` :  Find and Replace specific text
 > sed s/mysql/MySQL/g /etc/snort/snort.conf > snort2.conf
 The s command performs the search: you first give the term you
@@ -138,7 +138,7 @@ Broadcast Address:   11000000.10101000.00001100.11111111
 
 - **loopback address** : A loopback address is a special IP address
 (127.0.0.1 for IPv4 and ::1 for IPv6), reserved by InterNIC for use in testing network cards.
-![ifconfig](../assets/img/sample/ifconfig.png)
+![ifconfig](/assets/img/sample/ifconfig.png)
 At the top of the output is the name of the first detected interface,
 `eth0`, which is short for Ethernet0 (Linux starts counting at 0 rather
 than 1). If there were more wired Ethernet interfaces, they would show
