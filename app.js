@@ -1,5 +1,5 @@
 ---
-layout: compress
+  layout: compress
 ---
 
 /* Registering Service Worker */
