@@ -493,3 +493,17 @@ for i in "${MY_ARR[@]}"; do
   echo "$i"
 done
 ```
+
+## Concatenate Strings
+```shell script
+var_1="Concatenate"
+var_2="Strings"
+
+# format1
+$var_1$var_2
+# format2
+var_1+="Strings"
+# format3
+printf -v printf_variable "Concatenate Strings"
+echo $printf_variable
+```

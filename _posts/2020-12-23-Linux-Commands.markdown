@@ -50,13 +50,86 @@ tags: [linux]
 # 修改hosts
 > nano /etc/hosts
 
-# 查看端口使用状态
-> lsof -i -P -n
--t : Show only TCP sockets on Linux
--u : Display only UDP sockets on Linux
--l : Show listening sockets. For example, TCP port 22 is opened by SSHD server.
--p : List process name that opened sockets
--n : Don’t resolve service names i.e. don’t use DNS
+# lsof
+[How to Use the Linux lsof Command](https://www.howtogeek.com/426031/how-to-use-the-linux-lsof-command/)
+```shell script
+# See Processes That Have Opened a File
+lsof /var/log/kern.log
+# See All Files Opened from a Directory
+lsof +D /var/log
+# List Files Opened By a Process, you can provide more than one search item.
+# -c (command) option
+lsof -c ssh -c init
+# See Files Opened By a User
+lsof -u shanshanhu
+# Excluding FIles Opened by a User
+lsof -u ^shanshanhu
+# List FIles Opened by a Process
+lsof -p 4610  # 4610 is the process ID
+# Listing Process IDs That Have Opened a FIle
+lsof -t /usr/share/mime/mime.cache
+# Use AND and OR Searches
+# OR
+lsof -u mary -c ssh
+# AND
+lsof -u mary -c ssh -a
+# Automatically Refreshing The Display
+# +|-r(repeat) option
+lsof -u mary -c ssh -a -r5  # It waits for the number of seconds provided on the command line and then refreshes the display with a new set of results.
+# Displaying Files Associated with Internet Connections
+lsof -i
+# Displaying Files Associated with Internet Connections by Process ID
+lsof -i -a -p 606
+# Displaying Files Associated with Internet Connections and Ports
+lsof -i :22
+```
+- lsof -u shanshanhu -a +D /usr | less
+![lsof](/assets/img/sample/lsof_command.png)
+
+# less
+[how-to-use-the-less-command-on-linux](https://www.howtogeek.com/444233/how-to-use-the-less-command-on-linux/)
+[less-command-in-linux](https://linuxize.com/post/less-command-in-linux/#:~:text=To%20quit%20less%20and%20go%20back%20to%20the,less%20to%20watch%20the%20file%20contents%20for%20changes.)
+```shell script
+# shows line numbers
+less -N filename
+# Searching. press "/" and then type your search phrase.
+# To find the next matching item, press “n”. To search for the previous matching item, press “N”.
+/pattern
+# Searching backward
+?pattern
+# -p (pattern) option. It will then display the page with the matching search item in it.
+less -pPattern filename
+
+# By default, when less exits, the file contents will be cleared from the screen. To leave file contents on screen, use the -X option:
+less -X filename
+# same as 'tail -f'
+less +F /var/log/messages
+```
+## Navigating in Less
+- Move forward one line: Down Arrow, Enter, e, or j
+- Move backward one line: Up Arrow, y, or k
+- Move forward one page: Space bar or Page Down
+- Move backward one page: Page Up or b
+- Scroll to the right: Right Arrow
+- Scroll to the left: Left Arrow
+- Jump to the top of the file: Home or g
+- Jump to the end of the file: End or G
+- Jump to a specific line: Type the line number  and then hit “g”
+- Jump to a percentage way through the file: Type the percentage and then hit “p” or “%.” (You can even enter decimal values, so to jump to the point 27.2 percent through the file, type “27.2” and then hit “p” or “%.”  Why would you want to use decimals? I honestly have no idea.)
+- Search forward: Hit “/” and type your search, like “/Jekyll”, and press Enter
+- Search backward: Hit “?” and type your search, like “/Hyde”, and press Enter
+- Next matching search item: n
+- previous matching search item: N
+- Quit: q
+### Viewing Multiple Files
+> less file1.txt file2.txt
+- To view the next file, press “:” and then hit “n”.
+- To move to the previous file, type “:” and then hit “p.”
+![less-multiple-files](/assets/img/sample/less-multiple-files.png)
+### Using Marks
+To drop a mark on the top-most displayed line, press “m” and then hit the letter you wish to use, such as “a”.
+From any other location within the file, you can easily return to a mark by pressing the apostrophe (or single quote) “‘” and then pressing the letter of the mark you wish to return to.
+
 
 # netcat
 通过建立TCP/UDP连接传送数据---[Netcat (nc) Command with Examples](https://linuxize.com/post/netcat-nc-command-with-examples/)
